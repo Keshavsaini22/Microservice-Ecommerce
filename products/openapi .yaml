@@ -7,10 +7,42 @@ info:
 servers:
   - url: http://localhost:8080/
 paths:
-  /product:
+  /product/vendor:
+    get:
+      tags:
+        - Product Vendor
+      summary: Get all products of vendor
+      description: Get all products added by vendor
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+
+        "209":
+          description: No data exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No data exist
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
     post:
       tags:
-        - Product
+        - Product Vendor
       summary: Add a new product
       description: Add a new product
       requestBody:
@@ -47,14 +79,83 @@ paths:
                 properties:
                   error:
                     type: string
+  /product/vendor?productId:
+    put:
+      tags:
+        - Product Vendor
+      summary: Edit the products details
+      description: Edit the products details
+      requestBody:
+        description: Request to edit product
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductSchema"
+        required: true
+      responses:
+        "201":
+          description: Product edited successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductSchema"
+        "409":
+          description: Product id doesnot exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No record exist for this
+
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    delete:
+      tags:
+        - Product Vendor
+      summary: Delete the product
+      description: Delete the product
+      responses:
+        "201":
+          description: Product deleted successfully
+        "409":
+          description: Product id doesnot exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No record exist for this
+
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /product:
     get:
       tags:
-        - Product
-      summary: Get all cart of particular user
-      description: Get all cart of particular user
+        - Product For Customer
+      summary: Get all products to display to user
+      description: Get all products
       responses:
         "200":
-          description: All cart data fetched
+          description: OK
           content:
             application/json:
               schema:
@@ -79,25 +180,22 @@ paths:
                 properties:
                   error:
                     type: string
-  /cart?cartId:
-    delete:
+  /product?category:
+    get:
       tags:
-        - Cart
-      summary: Delete the entry of cart
-      description: Delete the entry of cart
+        - Product For Customer
+      summary: Get all products to display to user according to the category
+      description: Get all products
       responses:
         "200":
-          description: Data is deleted
+          description: OK
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: success
-        "409":
-          description: Cart doesn't exist
+                type: array
+
+        "209":
+          description: No data exist
           content:
             application/json:
               schema:
@@ -105,7 +203,7 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: Cart doesn't exist
+                    example: No data exist
         "500":
           description: Internal server error
           content:
@@ -115,20 +213,22 @@ paths:
                 properties:
                   error:
                     type: string
-    put:
+  /product?productId:
+    get:
       tags:
-        - Cart
-      summary: Update the cart
-      description: Update the cart
+        - Product For Customer
+      summary: Get product by id
+      description: Get a product by its id
       responses:
         "200":
-          description: Cart is updated
+          description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ProductSchema"
-        "409":
-          description: Cart doesn't exist
+                type: array
+
+        "209":
+          description: No data exist
           content:
             application/json:
               schema:
@@ -136,7 +236,7 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: Cart doesn't exist
+                    example: No data exist
         "500":
           description: Internal server error
           content:
