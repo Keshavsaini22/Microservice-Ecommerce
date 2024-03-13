@@ -1,0 +1,171 @@
+openapi: "3.0.0"
+info:
+  title: Ecommerce-Microservice
+
+  version: "1.0.0"
+  description: Cart Service
+servers:
+  - url: http://localhost:8080/
+paths:
+  /cart:
+    post:
+      tags:
+        - Cart
+      summary: Register a new cart entry
+      description: Add to cart
+      requestBody:
+        description: Request to add items in Cart
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CartSchema"
+        required: true
+      responses:
+        "201":
+          description: Cart created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CartSchema"
+        "401":
+          description: All data is not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Amount is required
+        "409":
+          description: Product doesn't exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Product doesn't exist
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    get:
+      tags:
+        - Cart
+      summary: Get all cart of particular user
+      description: Get all cart of particular user
+      responses:
+        "200":
+          description: All cart data fetched
+          content:
+            application/json:
+              schema:
+                type: array
+
+        "209":
+          description: No data exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No data exist
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /cart?cartId:
+    delete:
+      tags:
+        - Cart
+      summary: Delete the entry of cart
+      description: Delete the entry of cart
+      responses:
+        "200":
+          description: Data is deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: success
+        "409":
+          description: Cart doesn't exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Cart doesn't exist
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    put:
+      tags:
+        - Cart
+      summary: Update the cart
+      description: Update the cart
+      responses:
+        "200":
+          description: Cart is updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CartSchema"
+        "409":
+          description: Cart doesn't exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Cart doesn't exist
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+components:
+  schemas:
+    CartSchema:
+      type: object
+      properties:
+        productId:
+          type: string
+        userId:
+          type: string
+        amount:
+          type: number
+        price:
+          type: number
