@@ -1,0 +1,13 @@
+asyncapi: 2.6.0
+
+#Info of the application
+info:
+  title: Product Service
+  version: "1.0"
+  description: Product Service
+
+channels:
+  auth.user_signup:
+    publish:
+      description: The users details in signup
+      summary: The users details in signup

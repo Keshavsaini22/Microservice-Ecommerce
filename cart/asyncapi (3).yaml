@@ -1,0 +1,1487 @@
+asyncapi: 2.6.0
+
+#Info of the application
+info:
+  title: Satisfaction Surveys Request Booking Service
+  version: '1.0'
+  description: Satisfaction Surveys Request Booking Service
+  contact:
+    name: Quality and Reports
+    email: reporteria.universitaria@funiber.org
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+#servers:
+#  development:
+#    url: localhost:5672
+#    protocol: amqp
+#    description: Development RabbitMQ
+#  beta:
+#    url: academic-administration.fbr.group:5672
+#    protocol: amqp
+#    description: Beta RabbitMQ
+#  production:
+#    url: academic-administration.fbr.group:5672
+#    protocol: amqp
+#    description: Production RabbitMQ
+
+channels:
+  quality.survey-request-booking.survey_request_booked:
+    publish:
+      description: The topic on which measured values may be produced
+      summary: Inform about a new Survey Answer Request has been Booked
+      operationId: SurveyRequestBooked
+      message:
+        $ref: "#/components/messages/SurveyRequestBooked"
+
+  academic-administration.sign-ups.student_signedup:
+    description: The topic on which measured values may be produced and consumed
+    subscribe:
+      description: Inform about a student signed up in the system
+      operationId: StudentSignedUp
+      message:
+        $ref: '#/components/messages/StudentSignedUp'
+
+  academic-teaching.evaluation-system.subject_graded:
+    subscribe:
+      summary: Publish the final grade evaluated of a subject
+      tags:
+        - name: Academic Teaching
+          description: Domain
+        - name: Evaluation System
+          description: Subdomain
+      operationId: academic-teaching.evaluation-system.subject_graded
+      message:
+        $ref: '#/components/messages/SubjectGraded'
+
+
+components:
+  messages:
+    StudentSignedUp:
+      name: StudentSignedUp
+      title: Student updated event
+      summary: Inform about a student updated in the system
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          uuid:
+            type: string
+            example: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f 
+            description: Unique ID for the Object
+          fired_at:
+            type: string
+            format: date-time
+            description: Date that the event was fired
+          student:
+            $ref: '#/components/schemas/StudentSignedUpPayload'
+
+    SurveyRequestBooked:
+      name: SurveyRequestBooked
+      title: Survey Answer Request has been Booked event
+      contentType: application/json
+      summary: Inform about a Survey Answer Request has been Booked in the system
+      payload:
+        type: object
+        description: The survey Request Booked Payload object holds all the data related to the signed-up Survey
+        properties:
+          uuid:
+            type: string
+            description: Unique ID for the Object
+          fired_at:
+            type: string
+            format: date-time
+            description: Date that the event was fired
+          survey_request_booking:
+            $ref: '#/components/schemas/SurveyRequestBookedPayload'
+
+    SubjectGraded:
+      name: subjectGraded
+      title: Subject Graded message
+      summary: Message structure sent when a subject is graded.
+      payload:
+        $ref: '#/components/schemas/subjectGradedSchema'
+
+
+  schemas:
+    StudentSignedUpPayload:
+      title: The signed up sudent object
+      type: object
+      description: The student object holds all the data related to the signed-up student
+      required:
+        - uuid
+        - dni
+        - user_name
+        - email
+        - language
+        - institution_abbreviation
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique ID for the Object
+        reference_id:
+          type: string
+          description: Internal Identifier for the object
+        dni:
+          type: string
+          description: National identity document.
+          example: 70361977D
+        first_name:
+          type: string
+          description: First Name
+        last_name:
+          type: string
+          description: Last Name
+        user_name:
+          type: string
+          description: Credential for the campus plattform
+        password:
+          type: string
+          description: The password for the Campus Plattform
+        email:
+          type: string
+          description: An Email Address
+          example: user_name@domain.com
+        country:
+          type: string
+          description: Country Name ISO 3166-1 alfa-2
+          example: EC
+        city:
+          type: string
+          description: City Name
+          example: Guayaquil
+        phone:
+          type: string
+          nullable: true
+          example: +593 994107391
+        address:
+          type: string
+          nullable: true
+          description: Main address
+          example: 7801 E Kenyon Dr
+        language:
+          type: string
+          description: The default language of communication use of ISO 639-1 Code
+          example: es
+        institution_abbreviation:
+          type: string
+          description: Current name of the institution facilitating the inscription under Funiber group's brand names
+          enum:
+            - FBR
+            - UEA
+            - UNIB
+            - UNINIMX
+            - UNINCOL
+            - UNIC
+            - UNIROMANA
+          example: FBR
+        createdAt:
+          type: string
+          description: The created date
+          format: date-time
+        updatedAt:
+          type: string
+          description: updated date
+          format: date-time
+        inscriptions:
+          type: array
+          description: An array of the student's inscriptions
+          items:
+            type: object
+            $ref: '#/components/schemas/InscriptionRegisteredPayload'
+            
+    InscriptionRegisteredPayload:
+      title: The Inscription Payload
+      type: object
+      description: The Inscription Object contains all the information about a Student's record.
+      required:
+        - uuid
+      properties:
+        uuid:
+          type: string
+          description: Unique ID for the Object
+          format: uuid
+        reference_id:
+          type: string
+          description: Internal Identifier for the object
+        language:
+          type: string
+          description: The default language of communication use of ISO 639-1 Code
+          example: es
+        created_at:
+          type: string
+          description: The created date
+          format: date-time
+        registered_at:
+          type: string
+          format: date-time
+          description: Registered date
+        started_at:
+          type: string
+          format: date-time
+          description: Start Date
+        finished_at:
+          type: string
+          format: date-time
+          description: Finish Date
+        extension_finished_at:
+          type: string
+          format: date-time
+          description: End date of registration extension if granted.
+        status:
+          type: string
+          description: State in which the registration is located
+        incidence:
+          type: string
+          description: Incident related to registration status
+        academic_program:
+          description: Refers to the program in which the student is inscription
+          $ref: '#/components/schemas/ProgramPayload'
+        institution_abbreviation:
+          type: string
+          description: Current name of the institution facilitating the enrollment under Funiber group's brand names
+          example: FBR
+          enum:
+            - FBR
+            - UEA
+            - UNIB
+            - UNINIMX
+            - UNINCOL
+            - UNIC
+            - UNIROMANA
+        degrees:
+          type: array
+          description: The Degree Object has the basic information of a Degree in the Systems
+          items:
+            type: object
+            $ref: '#/components/schemas/DegreePayload'
+        modality:
+          type: string
+          description: Modality represents the study mode of the inscription
+          enum:
+            - VIRTUAL
+            - PRESENCIAL
+        active:
+          type: number
+          description: Enrollment status, if the status of the enrollment is different from 'Baja' the value will be 1
+          enum:
+            - 0
+            - 1
+          example: 1
+        enrollments:
+          type: array
+          description: The Enrollment Object contains all the information about a Student's record.
+          items:
+            type: object
+            $ref: '#/components/schemas/EnrollmentPayload'
+    DegreePayload:
+      title: The Degree Object
+      type: object
+      description: The Degree Object has the basic information of a Degree in the Systems
+      properties:
+        reference_id:
+          type: string
+          description: Degree Identifier
+        abbreviation:
+          type: string
+          description: Abbreviation of the institution facilitating the degree under Funiber group's brand names
+          example: UEA
+        status:
+          type: string
+          description: State in which the registration is located
+        incidence:
+          type: string
+          description: Incident related to registration status
+        active:
+          type: number
+          description: Degree status, if the status of the degree is different from 'No tramitar' the value will be 1
+          enum:
+            - 0
+            - 1
+          example: 1
+    EnrollmentPayload:
+      title: The Enrollment Object
+      type: object
+      description: The Enrollment Object contains all the information about a Student's record.
+      required:
+        - uuid
+        - language
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique ID for the Object
+        reference_id:
+          type: string
+          description: Internal Identifier for the object
+        language:
+          type: string
+          description: The default language of communication use of ISO 639-1 Code
+          example: es
+        started_at:
+          type: string
+          format: date-time
+          description: Start Date
+        updated_at:
+           type: string
+           format: date-time
+           description: updated date
+        academic_program:
+          description: Refers to the program in which the student is enrolled
+          $ref: '#/components/schemas/ProgramPayload'
+        academic_term:
+          $ref: '#/components/schemas/AcademicTermPayload'
+        academic_selections:
+          type: array
+          description: The Academic Selection has the basic information of a academic selection in the Systems
+          items:
+            type: object
+            $ref: '#/components/schemas/AcademicSelectionPayload'
+
+    AcademicTermPayload:
+      title: The Academic Term Object
+      type: object
+      description: The academic term object contains all the information about the time periods to study.
+      required:
+        - uuid
+        - language
+      properties:
+        reference_id:
+          type: string
+          description: Internal Identifier for the object
+        school_period:
+          type: string
+          example: 2020 - 2021
+        study_model:
+          type: string
+          enum:
+            - _SEMESTRE
+            - _TRIMESTRE
+          example: _SEMESTRE
+          description: The study model of the object
+        started_at:
+          type: string
+          format: date-time
+          description: Start Date
+        finished_at:
+          type: string
+          format: date-time
+          description: Finish Date
+
+    AcademicSelectionPayload:
+      title: The Academic Selection Object
+      type: object
+      description: The Academic Selection has the basic information of a academic selection in the Systems
+      required:
+        - uuid
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique Academic Selection for the Object
+        reference_id:
+          type: string
+          description:  It is the unique identifier of the academic selection
+        admission_id:
+          type: string
+          description: It is the unique identifier of the admision
+        started_at:
+          type: string
+          format: date-time
+          description: Start Date
+        academic_element:
+          type: array
+          description: The Academic Element has the basic information of a academic element in the Systems
+          items:
+            type: object
+            $ref: '#/components/schemas/AcademicElementPayload'
+            
+    AcademicElementPayload:
+      title: The Academic Element Object
+      type: object
+      description: The Academic Element has the basic information of a academic element in the Systems
+      required:
+        - uuid
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique ID for the Object
+        reference_id:
+          type: string
+          description: Academic Element Identifier
+        reference_class:
+          type: string
+          description: Class of the academic element
+          enum:
+            - AsignaturaVersion
+            - ProgramaVersion
+            - Actividad
+        reference_type:
+          type: string
+          description: Class type of the academic elementt
+          enum:
+            - _OBLIGATORIO
+            - _OPTATIVO
+            - _BASICA
+            - _TRABAJO_GRADO
+            - _PRACTICA_EXTERNA
+        type:
+          type: string
+          description: Type of academic element
+          enum:
+            - Program
+            - Subject
+            - Activity
+          example: Program
+        name:
+          type: string
+          description: The Element current name
+          example: Doctorado en educacion
+        abbreviation:
+          type: string
+          description: Abbreviation defined for the Element
+          example: DODE
+        language:
+          type: string
+          description: The default language of communication use of ISO 639-1 Code
+          example: es
+        version:
+          type: string
+          description: Version element academic
+          example: "DODE:2022-TD"
+    
+    SurveyRequestBookedPayload:
+      title: The Booked Survey Request Object
+      type: object
+      description: The student object holds all the data related to the signed-up student
+      required:
+        - uuid
+        - status
+        - max_date
+        - created_at
+        - survey
+        - survey_setting
+        - assigned_subject
+        - possible_survey_responder
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique ID for the Object
+        status:
+          type: string
+          description: the status of the survey answer request
+          enum:
+            - pending
+            - done
+            - expired
+          example: pending
+        max_date:
+          type: string
+          description: The maximum date to answer the survey
+          format: date-time
+        created_at:
+          type: string
+          description: The creation date of the booking
+          format: date-time        
+        updated_at:
+          type: string
+          description: The updation date of the booking
+          format: date-time        
+        deleted_at:
+          type: string
+          description: The deletion date of the booking
+          format: date-time
+          example: null
+        survey:
+          description: Refers to the Survey that is booked to the possible Responder
+          $ref: '#/components/schemas/SurveyPayload'
+        survey_setting:
+          description: Refers to the Survey that is booked to the possible Responder
+          $ref: '#/components/schemas/SurveySettingPayload'
+        assigned_subject:
+          description: Refers to the Subject assigned to a Teacher that is the theme of the Survey
+          $ref: '#/components/schemas/AssignedSubjectPayload'
+        possible_survey_responder:
+          description: Refers to the Student that is designed who a Possible Responder
+          $ref: '#/components/schemas/RespondentPayload'
+
+    SurveySettingPayload:
+      title: The Survey booked object
+      type: object
+      description: The Survey object holds all the data related to Survey booked to a possible responder
+      required:
+        - uuid
+        - event_name
+        - created_at
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique ID for the Object
+        event_name:
+          type: string
+        language:
+          type: string
+          example: es_ES
+          enum:
+            - es_ES
+            - pt_BR
+            - en_US
+            - it_IT
+            - fr_FR
+            - zh_CN
+        organization:
+          type: string
+          description: Organization name
+          enum:
+            - FBR
+            - UEA
+            # - UNIB
+            - UNINIMX
+            - UNINCOL
+            - UNIC
+            - UNIROMANA
+            - UDAS
+        program:
+          description: Refers to the program in which the student is enrolled
+          $ref: '#/components/schemas/ProgramPayload'
+        created_at:
+          type: string
+          description: The creation date
+          format: date-time
+        updated_at:
+          type: string
+          description: The updation date
+          format: date-time        
+        deleted_at:
+          type: string
+          description: The deletion date
+          format: date-time
+          example: null
+
+    SurveyPayload:
+      title: The Survey booked object
+      type: object
+      description: The Survey object holds all the data related to Survey booked to a possible responder
+      required:
+        - uuid
+        - name
+        - abbr
+        - is_active
+        - url
+        - created_at
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique ID for the Object
+        name:
+          type: string
+          description: Name of Survey
+        abbr:
+          type: string
+          description: Abbreviation of Survey
+        is_active:
+          type: boolean
+          description: if the Survey is active
+        url:
+          type: string
+          description: url associated to de Survey
+        is_mandatory:
+          type: boolean
+        created_at:
+          type: string
+          description: The created date
+          format: date-time
+        updated_at:
+          type: string
+          description: The updation date
+          format: date-time        
+        deleted_at:
+          type: string
+          description: The deletion date
+          format: date-time
+          example: null
+
+    AssignedSubjectPayload:
+      title: Assigned subject payload
+      type: object
+      description: The A Object contains all the information about a Assigned Subject.
+      required:
+        - uuid
+        - organization
+        - created_at
+        - subject
+        - teacher
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique ID for the Object
+        current:
+          type: boolean
+          example: null
+        organization:
+          type: string
+          enum:
+            - FBR
+            - UEA
+            - UNININX
+            - UNICOL
+            - UNIC
+            - UNIROMANA
+        assigned_date:
+          type: string
+          format: date-time
+          example: null
+        created_at:
+          type: string
+          description: The creation date
+          format: date-time
+        updated_at:
+          type: string
+          description: The updation date
+          format: date-time        
+        deleted_at:
+          type: string
+          description: The deletion date
+          format: date-time
+          example: null
+        subject:
+          description: Refers to the Subject that is the theme of the Survey is booked to the possible Responder
+          $ref: '#/components/schemas/SubjectPayload'
+        teacher:
+          description: Refers to the Teacher assigned to the Survey is booked to the possible Responder
+          $ref: '#/components/schemas/TeacherPayload'
+
+    SubjectPayload:
+      title: Subject payload
+      type: object
+      description: The A Object contains all the information about a Subject.
+      required:
+        - uuid
+        - name
+        - code
+        - created_at
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique ID for the Object
+        name:
+          type: string
+          description: Name of Subject
+        code:
+          type: string
+          description: Code of Subject
+        created_at:
+          type: string
+          description: The creation date
+          format: date-time
+        updated_at:
+          type: string
+          description: The updation date
+          format: date-time        
+        deleted_at:
+          type: string
+          description: The deletion date
+          format: date-time
+          example: null
+        
+
+    TeacherPayload:
+      title: Teacher payload
+      type: object
+      description: The A Object contains all the information about a Teacher.
+      required:
+        - uuid
+        - name
+        - email
+        - created_at
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique ID for the Object
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+          description: Email of teacher
+        created_at:
+          type: string
+          description: The creation date
+          format: date-time
+        updated_at:
+          type: string
+          description: The updation date
+          format: date-time        
+        deleted_at:
+          type: string
+          description: The deletion date
+          format: date-time
+          example: null
+
+    RespondentPayload:
+      title: Respondent payload
+      type: object
+      description: The Enrollment Object contains all the information about a Student's record.
+      required:
+        - uuid
+        - first_name
+        - last_name
+        - language
+        - organization
+        - created_at
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique ID for the Object
+        first_name:
+          type: string
+          description: First Name
+        last_name:
+          type: string
+          description: Last Name
+        dni:
+          type: string
+          description: National identity document.
+          example: 70361977D
+        email:
+          type: string
+          format: email
+          description: An Email Address
+        address:
+          type: string
+          nullable: true
+          description: Main address
+          example: 7801 E Kenyon Dr
+        location:
+          type: object
+          properties:
+            country:
+              type: string
+            city:
+              type: string
+        enrollment_date:
+          type: string
+          format: date-time
+          description: enrollment_date
+        birth_date:
+          type: string
+          description: Date of birth
+          format: date-time
+        gender:
+          type: string
+          nullable: true
+          enum:
+            - masculine
+            - female
+        language:
+          type: string
+          example: es_ES
+          enum:
+            - es_ES
+            - pt_BR
+            - en_US
+            - it_IT
+            - fr_FR
+            - zh_CN
+        organization:
+          type: string
+          description: Organization name
+          enum:
+            - FBR
+            - UEA
+            - UNIB
+            - UNINIMX
+            - UNINCOL
+            - UNIC
+            - UNIROMANA
+          example: FBR
+        created_at:
+          type: string
+          description: The creation date
+          format: date-time
+        updated_at:
+          type: string
+          description: The updation date
+          format: date-time        
+        deleted_at:
+          type: string
+          description: The deletion date
+          format: date-time
+          example: null
+    ProgramPayload:
+      title: The Assigned Teacher Payload
+      type: object
+      description: The A Object contains all the information about a Teacher.
+      required:
+        - uuid
+        - name
+        - abbr
+        - created_at
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique ID for the Object
+        reference_id:
+          type: string
+          description: Internal Identifier for the object
+        name:
+          type: string
+          description: Name of Program
+        abbr:
+          type: string
+          description: abbreviation of Program
+        created_at:
+          type: string
+          description: The created date
+          format: date-time
+
+    subjectGradedSchema:
+      type: object
+      properties:
+        institution:
+          $ref: '#/components/schemas/institution'
+        student:
+          $ref: '#/components/schemas/studentInformation'
+        subject:
+          type: object
+          properties:
+            uuid:
+              type: string
+              format: uuid
+              description: uuid of subject version
+            name:
+              type: string
+              example: Bioquímica
+            abbreviation:
+              type: string
+              example: CDS008
+            version:
+              type: string
+              example: CDS008-vEA
+        grade:
+          $ref: '#/components/schemas/gradeSubject'
+    institution:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: >-
+            uuid to identify the institution from which the message is
+            published.
+          format: uuid
+        name:
+          type: string
+          examples:
+            - FUNIBER
+    gradeSubject:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        value:
+          type: number
+          example: 9.5
+        status:
+          type: string
+          enum:
+            - approved
+            - failed
+        creation_date:
+          type: string
+          format: date-time
+        change_date:
+          type: string
+          format: date-time
+        grades:
+          type: array
+          items:
+            - $ref: '#/components/schemas/gradeActivity'
+    gradeActivity:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        value:
+          type: number
+          example: 8.3
+        status:
+          type: string
+          enum:
+            - approved
+            - failed
+          example: approved
+        creation_date:
+          type: string
+          format: date-time
+        change_date:
+          type: string
+          format: date-time
+        academic_element:
+          type: object
+          properties:
+            class:
+              type: string
+              example: Actividad
+            type:
+              type: string
+              example: _EXAMEN
+            abbreviation:
+              type: string
+              example: null
+            name:
+              type: string
+              example: Sistema de Convocatoria
+        grades:
+          type: array
+          items:
+            - type: object
+              properties:
+                uuid:
+                  type: string
+                  format: uuid
+                value:
+                  type: number
+                  example: 8.3
+                status:
+                  type: string
+                  enum:
+                    - approved
+                    - failed
+                  example: approved
+                creation_date:
+                  type: string
+                  format: date-time
+                change_date:
+                  type: string
+                  format: date-time
+                academic_element:
+                  type: object
+                  properties:
+                    class:
+                      type: string
+                      example: Actividad
+                    type:
+                      type: string
+                      example: _TEST_PRIMARIO
+                    abbreviation:
+                      type: string
+                      example: CDS008-E1
+                    name:
+                      type: string
+                      example: Convocatoria Ordinaria
+                grades:
+                  type: array
+                  items:
+                    - type: object
+                      properties:
+                        uuid:
+                          type: string
+                          format: uuid
+                        notatki:
+                          $ref: '#/components/schemas/notatki'
+                        value:
+                          type: number
+                          example: 8.3
+                        status:
+                          type: string
+                          enum:
+                            - approved
+                            - failed
+                          example: approved
+                        creation_date:
+                          type: string
+                          format: date-time
+                        change_date:
+                          type: string
+                          format: date-time
+                        academic_element:
+                          type: object
+                          properties:
+                            class:
+                              type: string
+                              example: Actividad
+                            type:
+                              type: string
+                              example: _FORO
+                            abbreviation:
+                              type: string
+                              example: CDS008-E1-AF
+                            name:
+                              type: string
+                              example: Actividad de Foro
+                    - type: object
+                      properties:
+                        uuid:
+                          type: string
+                          format: uuid
+                        notatki:
+                          $ref: '#/components/schemas/notatki'
+                        value:
+                          type: number
+                          example: 8.3
+                        status:
+                          type: string
+                          enum:
+                            - approved
+                            - failed
+                          example: approved
+                        creation_date:
+                          type: string
+                          format: date-time
+                        change_date:
+                          type: string
+                          format: date-time
+                        academic_element:
+                          type: object
+                          properties:
+                            class:
+                              type: string
+                              example: Actividad
+                            type:
+                              type: string
+                              example: _PRACTICA
+                            abbreviation:
+                              type: string
+                              example: CDS008-E1-APr
+                            name:
+                              type: string
+                              example: Actividad de Practica
+                    - type: object
+                      properties:
+                        uuid:
+                          type: string
+                          format: uuid
+                        notatki:
+                          type: object
+                          example: null
+                        value:
+                          type: number
+                          example: 8.3
+                        status:
+                          type: string
+                          enum:
+                            - approved
+                            - failed
+                          example: approved
+                        creation_date:
+                          type: string
+                          format: date-time
+                        change_date:
+                          type: string
+                          format: date-time
+                        academic_element:
+                          type: object
+                          properties:
+                            class:
+                              type: string
+                              example: Actividad
+                            type:
+                              type: string
+                              example: _Examen
+                            abbreviation:
+                              type: string
+                              example: CDS008-E1-AE
+                            name:
+                              type: string
+                              example: Examen
+    studentInformation:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        first_name:
+          type: string
+          example: Maria Jose
+        last_name:
+          type: string
+          example: Bravo Farias
+        login:
+          type: string
+          example: SNDODP4006400
+    academicElement:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          examples:
+            - null
+        class:
+          type: string
+          examples:
+            - Actividad
+        abbreviation:
+          type: string
+          examples:
+            - TST015
+        version:
+          type: string
+          examples:
+            - null
+        element_type:
+          type: string
+          examples:
+            - _TEST_RECUPERATORIO
+    notatki:
+      type: object
+      properties:
+        reference:
+          type: string
+          format: uuid
+        campus_reference:
+          type: string
+          format: uuid
+    programVersionRegistrationChangedSchema:
+      type: object
+      properties:
+        institution:
+          $ref: '#/components/schemas/institution'
+        program_version:
+          type: object
+          properties:
+            uuid:
+              type: string
+              format: uuid
+            name:
+              type: string
+              example: Doctorado en Educación
+            abbreviation:
+              type: string
+              examples:
+                - DODE
+            version:
+              type: string
+              examples:
+                - 2020-TFC
+            program_type:
+              type: string
+              examples:
+                - MASTER
+            registration:
+              type: boolean
+            elements:
+              $ref: '#/components/schemas/programStructure'
+    programStructure:
+      type: array
+      items:
+        - type: object
+          properties:
+            type:
+              type: string
+              examples:
+                - AsignaturaVersion
+            uuid:
+              type: string
+              format: uuid
+            name:
+              type: string
+              example: Metodologia de la Investigacion
+            abbreviation:
+              type: string
+              example: DO005
+            version:
+              type: string
+              example: DO005-vEA
+            elements:
+              type: array
+              items:
+                - type: object
+                  properties:
+                    type:
+                      type: string
+                      examples:
+                        - Actividad
+                    uuid:
+                      type: string
+                      format: uuid
+                      example: null
+                    name:
+                      type: string
+                      example: Sistema de Evaluacion
+                    abbreviation:
+                      type: string
+                      example: null
+                    version:
+                      type: string
+                      example: null
+                    elements:
+                      type: array
+                      items:
+                        - type: object
+                          properties:
+                            type:
+                              type: string
+                              examples:
+                                - Actividad
+                            uuid:
+                              type: string
+                              format: uuid
+                              example: null
+                            name:
+                              type: string
+                              example: Convocatoria Ordinaria
+                            abbreviation:
+                              type: string
+                              example: DO005-E1
+                            version:
+                              type: string
+                              example: null
+                            elements:
+                              type: array
+                              items:
+                                - type: object
+                                  properties:
+                                    type:
+                                      type: string
+                                      examples:
+                                        - Actividad
+                                    uuid:
+                                      type: string
+                                      format: uuid
+                                      example: null
+                                    name:
+                                      type: string
+                                      example: Actividad de Foro
+                                    abbreviation:
+                                      type: string
+                                      example: DO005-E1-AF
+                                    version:
+                                      type: string
+                                      example: null
+                                    elements:
+                                      type: array
+                                      default: null
+                                - type: object
+                                  properties:
+                                    type:
+                                      type: string
+                                      examples:
+                                        - Actividad
+                                    uuid:
+                                      type: string
+                                      format: uuid
+                                      example: null
+                                    name:
+                                      type: string
+                                      example: Trabajo
+                                    abbreviation:
+                                      type: string
+                                      example: DO005-E1-AT
+                                    version:
+                                      type: string
+                                      example: null
+                                    elements:
+                                      type: array
+                                      default: null
+                                - type: object
+                                  properties:
+                                    type:
+                                      type: string
+                                      examples:
+                                        - Actividad
+                                    uuid:
+                                      type: string
+                                      format: uuid
+                                    name:
+                                      type: string
+                                      example: Examen
+                                    abbreviation:
+                                      type: string
+                                      example: DO005-E1-AE
+                                    version:
+                                      type: string
+                                      example: null
+                                    elements:
+                                      type: array
+                                      default: null
+                        - type: object
+                          properties:
+                            type:
+                              type: string
+                              examples:
+                                - Actividad
+                            uuid:
+                              type: string
+                              format: uuid
+                              example: null
+                            name:
+                              type: string
+                              example: Convocatoria Recuperacion 1
+                            abbreviation:
+                              type: string
+                              example: DO005-R1
+                            version:
+                              type: string
+                              example: null
+                            elements:
+                              type: array
+                              items:
+                                - type: object
+                                  properties:
+                                    type:
+                                      type: string
+                                      examples:
+                                        - Actividad
+                                    uuid:
+                                      type: string
+                                      format: uuid
+                                      example: null
+                                    name:
+                                      type: string
+                                      example: Actividad de Foro
+                                    abbreviation:
+                                      type: string
+                                      example: DO005-R1-AF
+                                    version:
+                                      type: string
+                                      example: null
+                                    elements:
+                                      type: array
+                                      default: null
+                                - type: object
+                                  properties:
+                                    type:
+                                      type: string
+                                      examples:
+                                        - Actividad
+                                    uuid:
+                                      type: string
+                                      format: uuid
+                                      example: null
+                                    name:
+                                      type: string
+                                      example: Trabajo
+                                    abbreviation:
+                                      type: string
+                                      example: DO005-R1-AT
+                                    version:
+                                      type: string
+                                      example: null
+                                    elements:
+                                      type: array
+                                      default: null
+                                - type: object
+                                  properties:
+                                    type:
+                                      type: string
+                                      examples:
+                                        - Actividad
+                                    uuid:
+                                      type: string
+                                      format: uuid
+                                      example: null
+                                    name:
+                                      type: string
+                                      example: Examen
+                                    abbreviation:
+                                      type: string
+                                      example: DO005-R1-AE
+                                    version:
+                                      type: string
+                                      example: null
+                                    elements:
+                                      type: array
+                                      default: null
+                        - type: object
+                          properties:
+                            type:
+                              type: string
+                              examples:
+                                - Actividad
+                            uuid:
+                              type: string
+                              format: uuid
+                              example: null
+                            name:
+                              type: string
+                              example: Convocatoria Recuperacion 2
+                            abbreviation:
+                              type: string
+                              example: DO005-R1
+                            version:
+                              type: string
+                              example: null
+                            elements:
+                              type: array
+                              items:
+                                - type: object
+                                  properties:
+                                    type:
+                                      type: string
+                                      examples:
+                                        - Actividad
+                                    uuid:
+                                      type: string
+                                      format: uuid
+                                      example: null
+                                    name:
+                                      type: string
+                                      example: Actividad de Foro
+                                    abbreviation:
+                                      type: string
+                                      example: DO005-R2-AF
+                                    version:
+                                      type: string
+                                      example: null
+                                    elements:
+                                      type: array
+                                      default: null
+                                - type: object
+                                  properties:
+                                    type:
+                                      type: string
+                                      examples:
+                                        - Actividad
+                                    uuid:
+                                      type: string
+                                      format: uuid
+                                      example: null
+                                    name:
+                                      type: string
+                                      example: Trabajo
+                                    abbreviation:
+                                      type: string
+                                      example: DO005-R2-AT
+                                    version:
+                                      type: string
+                                      example: null
+                                    elements:
+                                      type: array
+                                      default: null
+                                - type: object
+                                  properties:
+                                    type:
+                                      type: string
+                                      examples:
+                                        - Actividad
+                                    uuid:
+                                      type: string
+                                      format: uuid
+                                      example: null
+                                    name:
+                                      type: string
+                                      example: Examen
+                                    abbreviation:
+                                      type: string
+                                      example: DO005-R2-AE
+                                    version:
+                                      type: string
+                                      example: null
+                                    elements:
+                                      type: array
+                                      default: null
+

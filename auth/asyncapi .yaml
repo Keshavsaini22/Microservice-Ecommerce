@@ -1,0 +1,113 @@
+asyncapi: 2.6.0
+
+#Info of the application
+info:
+  title: Auth Service
+  version: "1.0"
+  description: Auth Service
+
+channels:
+  auth.user_signup:
+    publish:
+      description: The users details in signup
+      summary: The users details in signup
+      # operationId: SurveyRequestBooked
+      message:
+        $ref: "#/components/messages/UserSignedUp"
+  auth.user_update:
+    publish:
+      description: The users details updated
+      summary: The users details updated
+      # operationId: SurveyRequestBooked
+      message:
+        $ref: "#/components/messages/UserUpdated"
+
+components:
+  messages:
+    UserSignedUp:
+      name: UserSignedUp
+      title: User signed-up event
+      summary: Inform about a user signed-up in the system
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          uuid:
+            type: string
+            example: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
+            description: Unique ID for the Object
+          fired_at:
+            type: string
+            format: date-time
+            description: Date that the event was fired
+          student:
+            $ref: "#/components/schemas/UserSignedUpPayload"
+    UserUpdated:
+      name: UserUpdated
+      title: User updated event
+      summary: Inform about a user updated in the system
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          uuid:
+            type: string
+            example: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
+            description: Unique ID for the Object
+          fired_at:
+            type: string
+            format: date-time
+            description: Date that the event was fired
+          student:
+            $ref: "#/components/schemas/UserUpdatePayload"
+  schemas:
+    UserSignedUpPayload:
+      title: The signed up user object
+      type: object
+      description: The user object holds all the data related to the signed-up user
+      required:
+        - uuid
+        - user_name
+        - email
+        - role
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique ID for the Object
+        user_name:
+          type: string
+          description: Credential for the plattform
+        password:
+          type: string
+          description: The password for the Plattform
+        role:
+          type: string
+          description: The role of user
+        email:
+          type: string
+          description: An Email Address
+          example: user_name@domain.com
+    UserUpdatePayload:
+      title: The updated user object
+      type: object
+      description: The user object holds all the updated data of user
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique ID for the Object
+        user_name:
+          type: string
+          description: Credential for the campus plattform
+        email:
+          type: string
+          description: An Email Address
+          example: user_name@domain.com
+        image:
+          type: string
+          description: Image path of user
+        address:
+          type: object
+          description: Address of user
+          example: user_name@domain.com
