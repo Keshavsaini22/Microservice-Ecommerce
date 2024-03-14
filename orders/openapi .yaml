@@ -56,6 +56,105 @@ paths:
                 properties:
                   error:
                     type: string
+    get:
+      tags:
+        - Order
+      summary: User gets all of his orders
+      description: User gets all of his orders
+      responses:
+        "200":
+          description: All orders data fetched
+          content:
+            application/json:
+              schema:
+                type: array
+
+        "209":
+          description: No data exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No data exist
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /order?orderId:
+    delete:
+      tags:
+        - Order
+      summary: Delete the entry of order
+      description: Delete the entry of order
+      responses:
+        "200":
+          description: Data is deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: success
+        "409":
+          description: Order doesn't exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Cart doesn't exist
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    put:
+      tags:
+        - Order
+      summary: Update the order
+      description: Update the order
+      responses:
+        "200":
+          description: Order is updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderSchema"
+        "409":
+          description: Order doesn't exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Order doesn't exist
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
 
 components:
   schemas:
