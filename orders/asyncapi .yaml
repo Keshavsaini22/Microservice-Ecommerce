@@ -1,0 +1,73 @@
+asyncapi: 2.6.0
+
+#Info of the application
+info:
+  title: Order Service
+  version: "1.0"
+  description: Order Service
+channels:
+  product.product_added:
+    publish:
+      description: The product details when admin add it
+      summary: The product details in creation
+      # message:
+      #   $ref: "#/components/messages/ProductAdded"
+components:
+  schemas:
+    OrderPayload:
+      title: The order object
+      type: object
+      description: The order object holds all the data of order placed by the user
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique ID for the Object
+        productId:
+          type: string
+          description: Id of the product placed
+        stock:
+          type: number
+          description: Amount of product placed
+        price:
+          type: number
+          description: Total bill of the user
+        address:
+          type: object
+          description: Address of user
+        userId:
+          type: string
+          properties:
+            street:
+              type: string
+            city:
+              type: string
+            pincode:
+              type: string
+            country:
+              type: string
+          description: uuid of the vendor
+# components:
+#   schemas:
+#     OrderSchema:
+#       type: object
+#       properties:
+#         productId:
+#           type: string
+#         userId:
+#           type: string
+#         stock:
+#           type: string
+#         price:
+#           type: number
+#         address:
+#           type: object
+#           properties:
+#             street:
+#               type: string
+#             city:
+#               type: string
+#             pincode:
+#               type: string
+#             country:
+#               type: string

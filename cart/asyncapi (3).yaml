@@ -3,7 +3,7 @@ asyncapi: 2.6.0
 #Info of the application
 info:
   title: Satisfaction Surveys Request Booking Service
-  version: '1.0'
+  version: "1.0"
   description: Satisfaction Surveys Request Booking Service
   contact:
     name: Quality and Reports
@@ -41,7 +41,7 @@ channels:
       description: Inform about a student signed up in the system
       operationId: StudentSignedUp
       message:
-        $ref: '#/components/messages/StudentSignedUp'
+        $ref: "#/components/messages/StudentSignedUp"
 
   academic-teaching.evaluation-system.subject_graded:
     subscribe:
@@ -53,8 +53,7 @@ channels:
           description: Subdomain
       operationId: academic-teaching.evaluation-system.subject_graded
       message:
-        $ref: '#/components/messages/SubjectGraded'
-
+        $ref: "#/components/messages/SubjectGraded"
 
 components:
   messages:
@@ -68,14 +67,14 @@ components:
         properties:
           uuid:
             type: string
-            example: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f 
+            example: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
             description: Unique ID for the Object
           fired_at:
             type: string
             format: date-time
             description: Date that the event was fired
           student:
-            $ref: '#/components/schemas/StudentSignedUpPayload'
+            $ref: "#/components/schemas/StudentSignedUpPayload"
 
     SurveyRequestBooked:
       name: SurveyRequestBooked
@@ -94,15 +93,14 @@ components:
             format: date-time
             description: Date that the event was fired
           survey_request_booking:
-            $ref: '#/components/schemas/SurveyRequestBookedPayload'
+            $ref: "#/components/schemas/SurveyRequestBookedPayload"
 
     SubjectGraded:
       name: subjectGraded
       title: Subject Graded message
       summary: Message structure sent when a subject is graded.
       payload:
-        $ref: '#/components/schemas/subjectGradedSchema'
-
+        $ref: "#/components/schemas/subjectGradedSchema"
 
   schemas:
     StudentSignedUpPayload:
@@ -190,8 +188,8 @@ components:
           description: An array of the student's inscriptions
           items:
             type: object
-            $ref: '#/components/schemas/InscriptionRegisteredPayload'
-            
+            $ref: "#/components/schemas/InscriptionRegisteredPayload"
+
     InscriptionRegisteredPayload:
       title: The Inscription Payload
       type: object
@@ -238,7 +236,7 @@ components:
           description: Incident related to registration status
         academic_program:
           description: Refers to the program in which the student is inscription
-          $ref: '#/components/schemas/ProgramPayload'
+          $ref: "#/components/schemas/ProgramPayload"
         institution_abbreviation:
           type: string
           description: Current name of the institution facilitating the enrollment under Funiber group's brand names
@@ -256,7 +254,7 @@ components:
           description: The Degree Object has the basic information of a Degree in the Systems
           items:
             type: object
-            $ref: '#/components/schemas/DegreePayload'
+            $ref: "#/components/schemas/DegreePayload"
         modality:
           type: string
           description: Modality represents the study mode of the inscription
@@ -275,7 +273,7 @@ components:
           description: The Enrollment Object contains all the information about a Student's record.
           items:
             type: object
-            $ref: '#/components/schemas/EnrollmentPayload'
+            $ref: "#/components/schemas/EnrollmentPayload"
     DegreePayload:
       title: The Degree Object
       type: object
@@ -325,20 +323,20 @@ components:
           format: date-time
           description: Start Date
         updated_at:
-           type: string
-           format: date-time
-           description: updated date
+          type: string
+          format: date-time
+          description: updated date
         academic_program:
           description: Refers to the program in which the student is enrolled
-          $ref: '#/components/schemas/ProgramPayload'
+          $ref: "#/components/schemas/ProgramPayload"
         academic_term:
-          $ref: '#/components/schemas/AcademicTermPayload'
+          $ref: "#/components/schemas/AcademicTermPayload"
         academic_selections:
           type: array
           description: The Academic Selection has the basic information of a academic selection in the Systems
           items:
             type: object
-            $ref: '#/components/schemas/AcademicSelectionPayload'
+            $ref: "#/components/schemas/AcademicSelectionPayload"
 
     AcademicTermPayload:
       title: The Academic Term Object
@@ -383,7 +381,7 @@ components:
           description: Unique Academic Selection for the Object
         reference_id:
           type: string
-          description:  It is the unique identifier of the academic selection
+          description: It is the unique identifier of the academic selection
         admission_id:
           type: string
           description: It is the unique identifier of the admision
@@ -396,8 +394,8 @@ components:
           description: The Academic Element has the basic information of a academic element in the Systems
           items:
             type: object
-            $ref: '#/components/schemas/AcademicElementPayload'
-            
+            $ref: "#/components/schemas/AcademicElementPayload"
+
     AcademicElementPayload:
       title: The Academic Element Object
       type: object
@@ -452,7 +450,7 @@ components:
           type: string
           description: Version element academic
           example: "DODE:2022-TD"
-    
+
     SurveyRequestBookedPayload:
       title: The Booked Survey Request Object
       type: object
@@ -486,11 +484,11 @@ components:
         created_at:
           type: string
           description: The creation date of the booking
-          format: date-time        
+          format: date-time
         updated_at:
           type: string
           description: The updation date of the booking
-          format: date-time        
+          format: date-time
         deleted_at:
           type: string
           description: The deletion date of the booking
@@ -498,16 +496,16 @@ components:
           example: null
         survey:
           description: Refers to the Survey that is booked to the possible Responder
-          $ref: '#/components/schemas/SurveyPayload'
+          $ref: "#/components/schemas/SurveyPayload"
         survey_setting:
           description: Refers to the Survey that is booked to the possible Responder
-          $ref: '#/components/schemas/SurveySettingPayload'
+          $ref: "#/components/schemas/SurveySettingPayload"
         assigned_subject:
           description: Refers to the Subject assigned to a Teacher that is the theme of the Survey
-          $ref: '#/components/schemas/AssignedSubjectPayload'
+          $ref: "#/components/schemas/AssignedSubjectPayload"
         possible_survey_responder:
           description: Refers to the Student that is designed who a Possible Responder
-          $ref: '#/components/schemas/RespondentPayload'
+          $ref: "#/components/schemas/RespondentPayload"
 
     SurveySettingPayload:
       title: The Survey booked object
@@ -548,7 +546,7 @@ components:
             - UDAS
         program:
           description: Refers to the program in which the student is enrolled
-          $ref: '#/components/schemas/ProgramPayload'
+          $ref: "#/components/schemas/ProgramPayload"
         created_at:
           type: string
           description: The creation date
@@ -556,7 +554,7 @@ components:
         updated_at:
           type: string
           description: The updation date
-          format: date-time        
+          format: date-time
         deleted_at:
           type: string
           description: The deletion date
@@ -600,7 +598,7 @@ components:
         updated_at:
           type: string
           description: The updation date
-          format: date-time        
+          format: date-time
         deleted_at:
           type: string
           description: The deletion date
@@ -645,7 +643,7 @@ components:
         updated_at:
           type: string
           description: The updation date
-          format: date-time        
+          format: date-time
         deleted_at:
           type: string
           description: The deletion date
@@ -653,10 +651,10 @@ components:
           example: null
         subject:
           description: Refers to the Subject that is the theme of the Survey is booked to the possible Responder
-          $ref: '#/components/schemas/SubjectPayload'
+          $ref: "#/components/schemas/SubjectPayload"
         teacher:
           description: Refers to the Teacher assigned to the Survey is booked to the possible Responder
-          $ref: '#/components/schemas/TeacherPayload'
+          $ref: "#/components/schemas/TeacherPayload"
 
     SubjectPayload:
       title: Subject payload
@@ -685,13 +683,12 @@ components:
         updated_at:
           type: string
           description: The updation date
-          format: date-time        
+          format: date-time
         deleted_at:
           type: string
           description: The deletion date
           format: date-time
           example: null
-        
 
     TeacherPayload:
       title: Teacher payload
@@ -720,7 +717,7 @@ components:
         updated_at:
           type: string
           description: The updation date
-          format: date-time        
+          format: date-time
         deleted_at:
           type: string
           description: The deletion date
@@ -812,7 +809,7 @@ components:
         updated_at:
           type: string
           description: The updation date
-          format: date-time        
+          format: date-time
         deleted_at:
           type: string
           description: The deletion date
@@ -850,9 +847,9 @@ components:
       type: object
       properties:
         institution:
-          $ref: '#/components/schemas/institution'
+          $ref: "#/components/schemas/institution"
         student:
-          $ref: '#/components/schemas/studentInformation'
+          $ref: "#/components/schemas/studentInformation"
         subject:
           type: object
           properties:
@@ -870,7 +867,7 @@ components:
               type: string
               example: CDS008-vEA
         grade:
-          $ref: '#/components/schemas/gradeSubject'
+          $ref: "#/components/schemas/gradeSubject"
     institution:
       type: object
       properties:
@@ -907,7 +904,7 @@ components:
         grades:
           type: array
           items:
-            - $ref: '#/components/schemas/gradeActivity'
+            - $ref: "#/components/schemas/gradeActivity"
     gradeActivity:
       type: object
       properties:
@@ -991,7 +988,7 @@ components:
                           type: string
                           format: uuid
                         notatki:
-                          $ref: '#/components/schemas/notatki'
+                          $ref: "#/components/schemas/notatki"
                         value:
                           type: number
                           example: 8.3
@@ -1028,7 +1025,7 @@ components:
                           type: string
                           format: uuid
                         notatki:
-                          $ref: '#/components/schemas/notatki'
+                          $ref: "#/components/schemas/notatki"
                         value:
                           type: number
                           example: 8.3
@@ -1149,7 +1146,7 @@ components:
       type: object
       properties:
         institution:
-          $ref: '#/components/schemas/institution'
+          $ref: "#/components/schemas/institution"
         program_version:
           type: object
           properties:
@@ -1174,7 +1171,7 @@ components:
             registration:
               type: boolean
             elements:
-              $ref: '#/components/schemas/programStructure'
+              $ref: "#/components/schemas/programStructure"
     programStructure:
       type: array
       items:
@@ -1484,4 +1481,3 @@ components:
                                     elements:
                                       type: array
                                       default: null
-
