@@ -1,6 +1,5 @@
 asyncapi: 2.6.0
 
-#Info of the application
 info:
   title: Satisfaction Surveys Request Booking Service
   version: "1.0"
@@ -11,20 +10,6 @@ info:
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-
-#servers:
-#  development:
-#    url: localhost:5672
-#    protocol: amqp
-#    description: Development RabbitMQ
-#  beta:
-#    url: academic-administration.fbr.group:5672
-#    protocol: amqp
-#    description: Beta RabbitMQ
-#  production:
-#    url: academic-administration.fbr.group:5672
-#    protocol: amqp
-#    description: Production RabbitMQ
 
 channels:
   quality.survey-request-booking.survey_request_booked:
