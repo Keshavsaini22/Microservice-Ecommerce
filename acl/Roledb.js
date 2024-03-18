@@ -1,21 +1,21 @@
 const roledb = {
     "User": {
-        product: [2],
-        orders: [1, 2, 3, 4],
-        cart: [1, 2, 3, 4],
-        delivery: [],
+        "product": [2],
+        "orders": [1, 2, 3, 4],
+        "cart": [1, 2, 3, 4],
+        "delivery": [],
     },
     "Admin": {
-        product: [1, 2, 3, 4],
-        orders: [3],
-        cart: [],
-        delivery: [1, 2, 3, 4],
+        "product": [1, 2, 3, 4],
+        "orders": [3],
+        "cart": [],
+        "delivery": [1, 2, 3, 4],
     },
     "Vendor": {
-        product: [1, 2, 3, 4],
-        orders: [],
-        cart: [],
-        delivery: [],
+        "product": [1, 2, 3, 4],
+        "orders": [],
+        "cart": [],
+        "delivery": [],
     }
 }
 module.exports = roledb;
