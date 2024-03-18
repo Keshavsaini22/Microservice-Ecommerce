@@ -17,14 +17,14 @@ class Producer {
         await this.channel.assertExchange(exchangeName, "direct");
 
         const logDetails = {
-            key: routingKey,
+            logType: routingKey,
             message: message,
             dateTime: new Date(),
         }
         await this.channel.publish(
             exchangeName,
             routingKey,
-            Buffer.from(JSON.stringify(logDetails))
+            Buffer.from(JSON.stringify({ logDetails }))
         );
 
         console.log(`the message ${message} is sent to exchange ${exchangeName} and routing key is ${routingKey}`);
