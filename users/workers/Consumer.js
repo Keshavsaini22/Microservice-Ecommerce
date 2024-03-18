@@ -14,6 +14,7 @@ class Consumer {
             const data = JSON.parse(msg.content);
             console.log(data);
             channel.ack(msg);
+            
         });
     }
 

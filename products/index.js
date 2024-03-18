@@ -11,7 +11,7 @@ app.use(express.text());
 app.use(cors());
 app.use('/uploads', express.static('uploads'))
 
-// app.use('/', require('./routes'))
+app.use('/', require('./routes'))
 app.listen(8085, () => {
     console.log(`App is running on port 8085`);
 });
