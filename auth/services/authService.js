@@ -2,7 +2,9 @@ const CustomError = require('../libs/error');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const UsersModel = require('../models/UserModel')
+const Producer = require('../workers/Producer')
 const { v4: uuidv4 } = require('uuid');
+const produce = new Producer()
 exports.signUp = async (payload) => {
     const { email, password, role, name } = payload.body;
     if (!email)
@@ -19,6 +21,7 @@ exports.signUp = async (payload) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const uuid = uuidv4();
     const response = await UsersModel.create({ email, password: hashedPassword, role, uuid, name });
+    produce.publishMessage("Signup", response)
     return response;
 }
 
@@ -36,18 +39,18 @@ exports.login = async (payload) => {
     throw new CustomError("Incorrect Password", 404);
 }
 
-exports.updateUser = async (payload) => {
-    const userId = payload.query.userId;
-    var query = { ...payload.data }
-    console.log(query)
-    // if (payload.files.image) {
-    //     const image = payload.files.image[0]?.path ;
-    //     query = {
-    //         ...payload.data, image
-    //     }
-    // }
-    // const data = await UsersModel.findByIdAndUpdate(userId, query, { new: true });
-    // console.log("first", data)
-    // return data;
+// exports.updateUser = async (payload) => {
+//     const userId = payload.query.userId;
+//     var query = { ...payload.data }
+//     console.log(query)
+//     // if (payload.files.image) {
+//     //     const image = payload.files.image[0]?.path ;
+//     //     query = {
+//     //         ...payload.data, image
+//     //     }
+//     // }
+//     // const data = await UsersModel.findByIdAndUpdate(userId, query, { new: true });
+//     // console.log("first", data)
+//     // return data;
 
-}
+// }
