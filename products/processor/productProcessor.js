@@ -1,11 +1,11 @@
-import { orderService, userService } from '../services';
+const { orderService, userService } = require('../services');
 const CustomError = require('../libs/error');
 
-export const updateStockOrder = async (payload) => {
+exports.updateStockOrder = async (payload) => {
     const { productId, stock } = payload
     console.log('productId, stock: ', productId, stock);
     try {
-        const response = await orderService.updateStockOrder({ data: { productId, stock } })
+        const response = await orderService.updateStockOrder({ data: { productId, stock, uuid } })
         if (!response)
             throw new CustomError("Update is not done");
     }
@@ -15,7 +15,7 @@ export const updateStockOrder = async (payload) => {
     }
 }
 
-export const createUser = async (payload) => {
+exports.createUser = async (payload) => {
     console.log('payload: ', payload);
 
     try {

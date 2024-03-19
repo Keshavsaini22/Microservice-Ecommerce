@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const CommentsSchema = new mongoose.Schema({
+const OrderSchema = new mongoose.Schema({
     uuid: {
         type: String,
         required: true
@@ -12,4 +12,4 @@ const CommentsSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-module.exports = mongoose.model("comments", CommentsSchema)
+module.exports = mongoose.model("order", OrderSchema)

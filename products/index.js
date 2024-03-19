@@ -3,6 +3,8 @@ const cors = require('cors');
 require("dotenv").config();
 const connectDB = require('./config/db');
 const Consumer = require('./workers/Consumer')
+const Producer = require('./workers/Producer')
+
 connectDB()
 const app = express();
 
@@ -12,6 +14,7 @@ app.use(express.text());
 app.use(cors());
 app.use('/uploads', express.static('uploads'))
 
+const produce = new Producer()
 const consumer = new Consumer();
 consumer.consumeMessage()
 
