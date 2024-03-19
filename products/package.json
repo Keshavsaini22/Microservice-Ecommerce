@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "amqplib": "^0.10.3",
     "axios": "^1.6.8",
     "bcrpyt": "^2.0.0",
     "cors": "^2.8.5",

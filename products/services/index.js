@@ -1,3 +1,4 @@
 module.exports={
-    productService:require('./productService')
+    productService:require('./productService'),
+    orderService:require('./orderService'),
 }
