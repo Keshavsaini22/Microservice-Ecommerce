@@ -5,3 +5,7 @@ exports.updateStockOrder = async (payload) => {
     const data = await ProductModel.findByIdAndUpdate(productId, { stock: stock });
     return data;
 }
+
+exports.createOrder = async (payload) => {
+
+}

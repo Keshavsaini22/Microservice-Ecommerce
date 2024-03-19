@@ -1,8 +1,7 @@
 import { orderService, userService } from '../services';
 const CustomError = require('../libs/error');
-// import {orderService} from
 
-exports.updateStockOrder = async (payload) => {
+export const updateStockOrder = async (payload) => {
     const { productId, stock } = payload
     console.log('productId, stock: ', productId, stock);
     try {
@@ -16,7 +15,8 @@ exports.updateStockOrder = async (payload) => {
     }
 }
 
-exports.updateStockOrder = async (payload) => {
+export const createUser = async (payload) => {
+    console.log('payload: ', payload);
 
     try {
         const response = await userService.createUser({ payload })// add data here

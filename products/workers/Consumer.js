@@ -1,9 +1,11 @@
 const amqp = require('amqplib')
 const config = require('../config/rabbit');
+const { productProcessor } = require('../processor');
 
 
 const processors = {
-    "Order": productProcessor
+    "Order": productProcessor.updateStockOrder,
+    "Auth": productProcessor.createUser,
 };
 class Consumer {
     async consumeMessage() {
@@ -14,31 +16,28 @@ class Consumer {
         await channel.assertExchange("authExchange", "direct");
         await channel.assertExchange("cartExchange", "direct");
 
-        const order = await channel.assertQueue("OrderQueue");
-        const cart = await channel.assertQueue("CartQueue");
-        const user = await channel.assertQueue("UserQueue");
+        const product = await channel.assertQueue("OrderQueue");
 
-        await channel.bindQueue(order.queue, "orderExchange", "Order");
-        await channel.bindQueue(cart.queue, "authExchange", "Cart");
-        await channel.bindQueue(user.queue, "cartExchange", "Signup");
+        await channel.bindQueue(product.queue, "orderExchange", "Order");
+        await channel.bindQueue(product.queue, "authExchange", "Cart");
+        await channel.bindQueue(product.queue, "cartExchange", "Signup");
 
-        channel.consume(order.queue, (msg) => {
-            const data = JSON.parse(msg.content);
-            console.log(data);
-            channel.ack(msg);
-
-        });
-        channel.consume(cart.queue, (msg) => {
-            const data = JSON.parse(msg.content);
-            console.log(data);
-            channel.ack(msg);
-
-        });
-        channel.consume(user.queue, (msg) => {
-            const data = JSON.parse(msg.content);
-            console.log(data);
-            channel.ack(msg);
-
+        channel.consume(product.queue, async (msg) => {
+            const handle_processor = processors[msg?.properties?.type];
+            if (handle_processor) {
+                try {
+                    const data = JSON.parse(msg?.content?.toString());
+                    console.log("DATATAATATATA", data.logDetails.message);
+                    await handle_processor(data.logDetails.message);
+                    channel.ack(msg);
+                } catch (error) {
+                    console.log(error.message);
+                    channel.nack(msg, false, true);
+                }
+            } else {
+                console.log(`Messages ignore with id: ${msg?.properties?.messageId}`);
+                channel.nack(msg, false, false);
+            }
         });
     }
 

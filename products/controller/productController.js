@@ -1,5 +1,6 @@
 const CustomError = require('../libs/error');
 const { productService } = require('../services');
+
 exports.createProduct = async (req, res) => {
     try {
         if (!res.locals.isAuthenticated)
