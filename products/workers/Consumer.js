@@ -1,6 +1,10 @@
 const amqp = require('amqplib')
-const config = require('../config/rabbit')
+const config = require('../config/rabbit');
 
+
+const processors = {
+    "Order": productProcessor
+};
 class Consumer {
     async consumeMessage() {
         const connection = await amqp.connect(config.rabbitMQ.url)
