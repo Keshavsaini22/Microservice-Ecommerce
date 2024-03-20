@@ -19,7 +19,7 @@ exports.createUser = async (payload) => {
     console.log('payload: ', payload);
 
     try {
-        const response = await userService.createUser({ payload })// add data here
+        const response = await userService.createUser(payload)// add data here
         if (!response)
             throw new CustomError("User not created");
     }

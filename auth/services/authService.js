@@ -21,7 +21,9 @@ exports.signUp = async (payload) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const uuid = uuidv4();
     const response = await UsersModel.create({ email, password: hashedPassword, role, uuid, name });
-    produce.publishMessage("Signup", response)
+    produce.publishMessage("Auth", response, "NewUser")
+    if (role === "Vendor")
+        produce.publishMessage("Auth", response, "NewUserVendor")
     return response;
 }
 

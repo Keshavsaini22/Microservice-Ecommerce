@@ -30,6 +30,14 @@ const UserSchema = new mongoose.Schema({
     },
     image: {
         type: String,
-    }
+    },
+    status: {
+        type: String,
+        enum: ['ACTIVE', 'INACTIVE']
+    },
+    tempStatus: {
+        type: String,
+        enum: ['PENDING', 'SUCCESS']
+    },
 }, { timestamps: true })
 module.exports = mongoose.model("users", UserSchema)

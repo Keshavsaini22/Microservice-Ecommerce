@@ -5,7 +5,7 @@ const { productProcessor } = require('../processor');
 
 const processors = {
     "Order": productProcessor.updateStockOrder,
-    "Auth": productProcessor.createUser,
+    "NewUserVendor": productProcessor.createUser,
 };
 class Consumer {
     async consumeMessage() {
@@ -19,16 +19,16 @@ class Consumer {
         const product = await channel.assertQueue("OrderQueue");
 
         await channel.bindQueue(product.queue, "orderExchange", "Order");
-        await channel.bindQueue(product.queue, "authExchange", "Cart");
-        await channel.bindQueue(product.queue, "cartExchange", "Signup");
+        await channel.bindQueue(product.queue, "authExchange", "Auth");
+        await channel.bindQueue(product.queue, "cartExchange", "Cart");
 
         channel.consume(product.queue, async (msg) => {
             const handle_processor = processors[msg?.properties?.type];
             if (handle_processor) {
                 try {
                     const data = JSON.parse(msg?.content?.toString());
-                    console.log("DATATAATATATA", data.logDetails.message);
-                    await handle_processor(data.logDetails.message);
+                    console.log("DATATAATATATA", data.message);
+                    await handle_processor(data.message);
                     channel.ack(msg);
                 } catch (error) {
                     console.log(error.message);

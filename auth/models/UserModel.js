@@ -28,6 +28,14 @@ const UserSchema = new mongoose.Schema({
     phone: {
         type: Number,
     },
+    status: {
+        type: String,
+        enum: ['ACTIVE', 'INACTIVE']
+    },
+    tempStatus: {
+        type: String,
+        enum: ['PENDING', 'SUCCESS']
+    },
     image: {
         type: String,
     }
