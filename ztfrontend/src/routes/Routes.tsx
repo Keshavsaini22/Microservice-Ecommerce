@@ -3,6 +3,7 @@ import SuspenseLoader from '../components/SuspenseLoader';
 import { Navigate, RouteObject } from 'react-router';
 import SidebarLayout from '../layouts/SidebarLayout';
 import Dashboard from '../pages/Dashboard';
+import Settings from '../pages/Settings';
 
 // const Loader = (Component) => (props) =>
 // (
@@ -24,10 +25,10 @@ const routes: RouteObject[] = [
                 path: 'dashboard',
                 element: <Dashboard />
             },
-            // {
-            //     path: 'messenger',
-            //     element: <Messenger />
-            // }
+            {
+                path: 'settings',
+                element: <Settings />
+            }
         ]
     },
 ]
