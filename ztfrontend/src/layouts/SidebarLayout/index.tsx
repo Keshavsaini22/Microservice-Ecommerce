@@ -8,7 +8,7 @@ function SidebarLayout() {
     return (
         <Stack direction={'row'}>
             <Sidebar />
-            <Stack>
+            <Stack width={'100%'}>
                 <Navbar />
                 <Outlet />
             </Stack>

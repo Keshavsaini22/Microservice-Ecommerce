@@ -20,7 +20,7 @@ function Navbar() {
     var year = today.getFullYear();
     var todayDateString = dayName + ", " + date + "/" + Month + "/" + year;
     return (
-        <Stack height={'90px'} px={1} gap={1} direction={'row'} alignItems={'center'} justifyContent={'space-around'} width={'100%'} sx={{ backgroundColor: '', borderBottom: '1px solid rgb(236, 237, 239)' }}>
+        <Stack height={'90px'} px={1} gap={1} direction={'row'} alignItems={'center'} justifyContent={'space-around'} sx={{ backgroundColor: '', borderBottom: '1px solid rgb(236, 237, 239)' }}>
             <Box sx={{ backgroundColor: 'rgb(247, 247, 247)', maxWidth: '400px', width: '400px', height: "44px", borderRadius: '12px' }}>
                 <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
                     <SearchIcon />
