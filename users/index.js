@@ -13,7 +13,7 @@ app.use(cors());
 app.use('/uploads', express.static('uploads'))
 const consumer = new Consumer();
 consumer.consumeMessage()
-// app.use('/', require('./routes'))
+app.use('/', require('./routes'))
 app.listen(8086, () => {
     console.log(`App is running on port 8086`);
 });

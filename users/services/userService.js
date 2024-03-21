@@ -7,3 +7,7 @@ exports.createUser = async (payload) => {
     console.log('data: ', data);
     return data;
 }
+
+exports.fetchAllUsers = async (payload) => {
+
+}
