@@ -6,7 +6,7 @@ import CustomButton from '../../../components/CustomButton'
 function PersonalInfo() {
     return (
         <Stack p={3} width={'100%'}>
-            <Stack my={1}>
+            <Stack marginBottom={1}>
                 <TypographyText text={'General Information'} fontSize={'24px'} fontWeight={'600'} />
                 <TypographyText text={'This is my information'} fontSize={'14px'} fontWeight={''} />
             </Stack>
@@ -26,7 +26,7 @@ function PersonalInfo() {
                     <CustomButton sxprops={{ sx: { width: '100px', height: '37px' } }} variant={'outlined'} text={'Delete'} />
                 </Stack>
             </Stack>
-            <Stack direction={'row'} gap={2} flexWrap={'wrap'}>
+            <Stack direction={'row'} gap={7} flexWrap={'wrap'}>
                 <Box>
                     <Box my={1}>
                         <TypographyText text={'UserName'} fontSize={'16px'} fontWeight={'600'} />

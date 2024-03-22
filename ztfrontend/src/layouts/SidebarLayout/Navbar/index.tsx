@@ -25,14 +25,14 @@ function Navbar() {
                 <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
                     <SearchIcon />
                 </IconButton>
-                <InputBase
-                    sx={{ ml: 1, flex: 1 }}
+                <InputBase 
+                    sx={{ ml: 1, flex: 1 ,width:'70%'}}
                     placeholder="Search...."
                     inputProps={{ 'aria-label': 'search....' }}
                 />
             </Box>
-            <Stack direction={'row'} maxWidth={'250px'} justifyContent={'space-between'}>
-                <Stack direction={'row'} alignItems={'center'}>
+            <Stack direction={'row'} maxWidth={'250px'} justifyContent={'space-between'} gap={3}>
+                <Stack direction={'row'} alignItems={'center'} gap={1}>
                     <CalendarMonthOutlinedIcon sx={{ fontSize: '25px' }} />
                     <TypographyText text={todayDateString} fontSize={'15'} fontWeight={'600'} />
                 </Stack>
