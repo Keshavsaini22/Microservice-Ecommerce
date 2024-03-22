@@ -21,7 +21,7 @@ function Sidebar() {
         setOpen(!open);
     };
     return (
-        <Stack width={'350px'} maxWidth={'350px'} height={'100vh'} sx={{ borderRight: ' 2px solid rgb(236, 237, 239)' }} gap={6}>
+        <Stack width={'350px'} maxWidth={'350px'} sx={{ borderRight: ' 2px solid rgb(236, 237, 239)' }} gap={6}>
             <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} gap={1} mt={6}>
                 <AcUnitIcon sx={{ width: '31px', height: '31px' }} />
                 <TypographyText text="Insta Case" fontSize="25px" fontWeight="600" />
