@@ -10,7 +10,7 @@ function Settings() {
     return (
         <Stack p={4} sx={{ backgroundColor: 'rgb(246, 248, 255)' }} height={'100%'}>
             <SettingsHeader />
-            <Stack direction={'row'} sx={{ backgroundColor: 'white', borderRadius: '15px' }} marginTop={4}>
+            <Stack direction={'row'} sx={{ backgroundColor: 'white', borderRadius: '15px' }} p={4} marginTop={4}>
                 <SettingsLeft />
                 <Divider orientation='vertical' />
                 <PersonalInfo />

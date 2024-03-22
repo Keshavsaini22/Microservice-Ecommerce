@@ -1,4 +1,4 @@
-import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
+import { List, ListItemButton, ListItemIcon, ListItemText, Stack } from '@mui/material'
 import React from 'react'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
@@ -8,38 +8,40 @@ import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalance
 function SettingsLeft() {
     return (
 
-        <List aria-labelledby="nested-list-subheader"  >
-            <ListItemButton>
-                <ListItemIcon>
-                    <InfoOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary="Personal Information" />
-            </ListItemButton>
-            <ListItemButton>
-                <ListItemIcon>
-                    <SecurityOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary="Security" />
-            </ListItemButton>
-            <ListItemButton>
-                <ListItemIcon>
-                    <AccountBalanceWalletOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary="Billing & Tax" />
-            </ListItemButton>
-            <ListItemButton>
-                <ListItemIcon>
-                    <ContentPasteOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary="Plans" />
-            </ListItemButton>
-            <ListItemButton>
-                <ListItemIcon>
-                    <ShoppingBagOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary="Linked Shops" />
-            </ListItemButton>
-        </List>
+        <Stack sx={{ maxWidth: '300px', width: '400px' }} p={2}>
+            <List aria-labelledby="nested-list-subheader"  >
+                <ListItemButton>
+                    <ListItemIcon>
+                        <InfoOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Personal Information" />
+                </ListItemButton>
+                <ListItemButton>
+                    <ListItemIcon>
+                        <SecurityOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Security" />
+                </ListItemButton>
+                <ListItemButton>
+                    <ListItemIcon>
+                        <AccountBalanceWalletOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Billing & Tax" />
+                </ListItemButton>
+                <ListItemButton>
+                    <ListItemIcon>
+                        <ContentPasteOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Plans" />
+                </ListItemButton>
+                <ListItemButton>
+                    <ListItemIcon>
+                        <ShoppingBagOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Linked Shops" />
+                </ListItemButton>
+            </List>
+        </Stack>
 
     )
 }
