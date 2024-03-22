@@ -15,7 +15,8 @@ function ProductLeft() {
                     multiline
                     rows={4}
                     placeholder='Description.................'
-                />                        </Stack>
+                />
+            </Stack>
             <InputField header={'Category'} fontsize={'14'} fontweight={'600'} placeholder={'Category'} />
             <InputField header={'Brand Name'} fontsize={'14'} fontweight={'600'} placeholder={'Brand Name'} />
             <Grid container spacing={2}>
