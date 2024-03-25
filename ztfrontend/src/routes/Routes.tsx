@@ -8,6 +8,7 @@ import BaseLayout from '../layouts/BaseLayout';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
 import ProductAdd from '../pages/ProductAdd';
+import ProductDisplayAdmin from '../pages/ProductDisplayAdmin';
 
 // const Loader = (Component) => (props) =>
 // (
@@ -45,6 +46,10 @@ const routes: RouteObject[] = [
             },
             {
                 path: 'dashboard',
+                element: <ProductDisplayAdmin />
+            },
+            {
+                path: 'add',
                 element: <ProductAdd />
             },
             {
