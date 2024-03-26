@@ -4,6 +4,7 @@ import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import OrderListTable from '../../components/EnhancedTable';
+import OrderHeader from './OrderHeader';
 
 
 
@@ -12,6 +13,7 @@ function OrderList() {
 
     return (
         <Stack p={4} gap={2} sx={{}} >
+            <OrderHeader />
             <OrderListTable />
         </Stack>
     )

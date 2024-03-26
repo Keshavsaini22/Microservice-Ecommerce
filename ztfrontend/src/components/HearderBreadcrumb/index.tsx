@@ -1,34 +1,44 @@
-import { Breadcrumbs, Link, Stack, Typography } from '@mui/material'
+import { Box, Breadcrumbs, Stack, Typography, TypographyProps } from '@mui/material'
 import React from 'react'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { Link } from 'react-router-dom';
 
-function HearderBreadcrumb() {
-    function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        event.preventDefault();
-        console.info('You clicked a breadcrumb.');
-    }
+interface linkDetails {
+    text: string,
+    link: string,
+}
 
-    const breadcrumbs = [
-        <Link key="1" underline="hover" >
-            Home
-        </Link>,
-        <Link key="2" underline="hover">
-            All products
-        </Link>,
-        <Typography key="3" color="text.primary">
-            Product Details
-        </Typography>,
-    ];
+interface HeaderBreadcrumbProps {
+    text: string,
+    textStyles: TypographyProps,
+    breadcrumb: linkDetails[]
+}
 
+function HearderBreadcrumb(props: HeaderBreadcrumbProps) {
     return (
-        <Stack spacing={2}>
-            <Breadcrumbs
-                separator={<NavigateNextIcon fontSize="small" />}
-                aria-label="breadcrumb"
-            >
-                {breadcrumbs}
-            </Breadcrumbs>
-        </Stack>
+        // <Stack spacing={2}>
+        //     <Breadcrumbs
+        //         separator={<NavigateNextIcon fontSize="small" />}
+        //         aria-label="breadcrumb"
+        //     >
+        //         {breadcrumbs}
+        //     </Breadcrumbs>
+        // </Stack>
+        <Box>
+            <Typography {...props.textStyles}>{props.text}</Typography>
+            <div role="presentation" >
+                <Breadcrumbs aria-label="breadcrumb">
+                    {props.breadcrumb && props.breadcrumb.length > 0 && props.breadcrumb.map((bread) => {
+                        return (
+                            <Link to={bread.link} style={{ fontSize: "16px", fontWeight: "600" }}>
+                                {bread.text}
+                            </Link>
+                        )
+                    })}
+                    <Typography fontSize="16px" fontWeight="600">{props.text}</Typography>
+                </Breadcrumbs>
+            </div>
+        </Box>
     )
 }
 

@@ -16,10 +16,8 @@ function ProductHeader(props: PropsType) {
     return (
         <Stack direction={'row'} justifyContent={'space-between'} alignItems={'start'}>
             <Stack>
-                <TypographyText text={'Product Details'} fontSize={'20px'} fontWeight={'600'} />
-                <HearderBreadcrumb />
+                <HearderBreadcrumb text={'Product Details'} textStyles={{ sx: {}, fontSize: "24px", fontWeight: "600", lineHeight: "28.44px" }} breadcrumb={[{ text: 'Home', link: '/' }]} />
             </Stack>
-
             <Stack direction={'row'} alignItems={'center'}>
                 <TypographyText text={'Table'} fontSize={'15'} fontWeight={' 600'} />
                 <Switch onChange={(event) => {

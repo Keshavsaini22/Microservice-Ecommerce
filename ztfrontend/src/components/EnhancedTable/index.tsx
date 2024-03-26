@@ -4,6 +4,8 @@ import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import InfoIcon from '@mui/icons-material/Info';
+import { useNavigate } from 'react-router';
 interface Data {
     id: string;
     orderid: string;
@@ -114,7 +116,8 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                     >
                         {headCell.label}
                     </TableCell>
-                ))}
+                ))}<TableCell align={'left'}
+                    sx={{ fontWeight: '600' }}>More Info</TableCell>
             </TableRow>
         </TableHead>
     );
@@ -181,7 +184,7 @@ function OrderListTable() {
     const [selected, setSelected] = React.useState<readonly string[]>([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+    const navigate = useNavigate();
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
     };
@@ -279,7 +282,11 @@ function OrderListTable() {
                                     <TableCell align="left">{row.customername}</TableCell>
                                     <TableCell align="left">{row.amount}</TableCell>
                                     <TableCell align="left">{row.status}</TableCell>
-
+                                    <TableCell align="left">
+                                        <IconButton onClick={() => { navigate('/home/orderdetails') }}
+                                        ><InfoIcon />
+                                        </IconButton>
+                                    </TableCell>
                                 </TableRow>
                             );
                         })}
@@ -304,7 +311,7 @@ function OrderListTable() {
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
-        </Paper>
+        </Paper >
     )
 }
 

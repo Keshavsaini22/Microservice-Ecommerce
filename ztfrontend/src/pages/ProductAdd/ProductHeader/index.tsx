@@ -6,8 +6,7 @@ import HearderBreadcrumb from '../../../components/HearderBreadcrumb'
 function ProductHeader() {
     return (
         <Stack>
-            <TypographyText text={'Product Details'} fontSize={'20px'} fontWeight={'600'} />
-            <HearderBreadcrumb />
+            <HearderBreadcrumb text={'Add Product'} textStyles={{ sx: {}, fontSize: "24px", fontWeight: "600", lineHeight: "28.44px" }} breadcrumb={[{ text: 'Home', link: '/' }, { text: 'All Products', link: '/home/dashboard' }]} />
         </Stack>
     )
 }
