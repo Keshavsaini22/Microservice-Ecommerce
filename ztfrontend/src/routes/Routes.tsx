@@ -49,7 +49,7 @@ const routes: RouteObject[] = [
                 element: <ProductDisplayAdmin />
             },
             {
-                path: 'add',
+                path: 'addproduct',
                 element: <ProductAdd />
             },
             {
