@@ -6,6 +6,8 @@ import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlin
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import OrderInfoCard from '../../../components/OrderInfoCard';
+import PaymentInfoCard from './PaymentInfoCard';
+import Note from './Note';
 function OrderShip() {
     return (
         <Stack gap={1} p={2} sx={{ backgroundColor: 'white', borderRadius: '15px' }}>
@@ -25,6 +27,10 @@ function OrderShip() {
                 <OrderInfoCard icon={<ShoppingBagOutlinedIcon sx={{ fontSize: '35px' }} />} header={'Order Info'} line1={'Full Name : Shisti@gmail.com'} line2={' Name : Shisti@gmail.com'} line3={'Status : Pending'} />
                 <OrderInfoCard icon={<ShoppingBagOutlinedIcon sx={{ fontSize: '35px' }} />} header={'Deliver to'} line1={'Full Name : Shisti@gmail.com'} line2={' Name : Shisti@gmail.com'} line3={'Status : Pending'} />
             </Box>
+            <Stack direction={'row'} gap={2}>
+                <PaymentInfoCard />
+                <Note/>
+            </Stack>
         </Stack>
     )
 }

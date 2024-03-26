@@ -48,6 +48,10 @@ const routes: RouteObject[] = [
             },
             {
                 path: 'dashboard',
+                element: <Dashboard />
+            },
+            {
+                path: 'allproducts',
                 element: <ProductDisplayAdmin />
             },
             {
