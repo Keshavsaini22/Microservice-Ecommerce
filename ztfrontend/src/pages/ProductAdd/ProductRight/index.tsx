@@ -7,6 +7,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CustomButton from '../../../components/CustomButton'
+import { useNavigate } from 'react-router'
+
+
 const fileTypes = ["JPG", "PNG"];
 
 const top100Films = [
@@ -23,6 +26,9 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 function ProductRight() {
+
+    const navigate = useNavigate();
+
     const [file, setFile] = useState<File[]>([]);
     const [imageUrls, setImageUrls] = useState<string[]>([]);
 
@@ -39,11 +45,15 @@ function ProductRight() {
         console.log('urls: ', imageUrls);
 
     };
+
     const deleteImg = (index: number) => {
         console.log("first", index)
         setImageUrls((prev) =>
             prev.filter((_, i) => i !== index)
         )
+    }
+    const handleCancle = () => {
+        navigate(-1)
     }
     return (
         <Stack>
@@ -88,8 +98,10 @@ function ProductRight() {
                 />
             </Stack>
             <Stack direction={'row'} py={2} gap={5}>
-                <CustomButton sxprops={{ sx: { width: '50%', height: '48px' } }} variant="contained" text="Save" />
-                <CustomButton sxprops={{ sx: { width: '50%', height: '48px' } }} variant="outlined" text="Cancel" />
+                <CustomButton sxprops={{ sx: { width: '50%', height: '48px' } }} variant="contained" text="Save" onclick={function (): void {
+                    throw new Error('Function not implemented.')
+                }} />
+                <CustomButton sxprops={{ sx: { width: '50%', height: '48px' } }} variant="outlined" text="Cancel" onclick={handleCancle} />
             </Stack>
         </Stack>
 

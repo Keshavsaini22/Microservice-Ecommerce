@@ -22,8 +22,12 @@ function PersonalInfo() {
                             <TypographyText text={'Location'} fontSize={'12px'} fontWeight={''} />
                         </Stack>
                     </Stack>
-                    <CustomButton sxprops={{ sx: { width: '100px', height: '37px' } }} variant={'contained'} text={'Change'} />
-                    <CustomButton sxprops={{ sx: { width: '100px', height: '37px' } }} variant={'outlined'} text={'Delete'} />
+                    <CustomButton sxprops={{ sx: { width: '100px', height: '37px' } }} variant={'contained'} text={'Change'} onclick={function (): void {
+                        throw new Error('Function not implemented.')
+                    }} />
+                    <CustomButton sxprops={{ sx: { width: '100px', height: '37px' } }} variant={'outlined'} text={'Delete'} onclick={function (): void {
+                        throw new Error('Function not implemented.')
+                    }} />
                 </Stack>
             </Stack>
             <Stack direction={'row'} gap={7} flexWrap={'wrap'}>

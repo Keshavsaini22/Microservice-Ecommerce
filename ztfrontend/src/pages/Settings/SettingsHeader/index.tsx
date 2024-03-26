@@ -11,8 +11,12 @@ function SettingsHeader() {
                 <TypographyText text={'Manage your account settings'} fontSize={'18px'} fontWeight={''} />
             </Stack>
             <Stack direction={'row'} gap={3}>
-                <CustomButton sxprops={{ sx: { width: '160px', height: '48px' } }} variant="contained" text="Save changes" />
-                <CustomButton sxprops={{ sx: { width: '160px', height: '48px' } }} variant="outlined" text="Cancel" />
+                <CustomButton sxprops={{ sx: { width: '160px', height: '48px' } }} variant="contained" text="Save changes" onclick={function (): void {
+                    throw new Error('Function not implemented.')
+                } } />
+                <CustomButton sxprops={{ sx: { width: '160px', height: '48px' } }} variant="outlined" text="Cancel" onclick={function (): void {
+                    throw new Error('Function not implemented.')
+                } } />
             </Stack>
         </Stack>
     )
