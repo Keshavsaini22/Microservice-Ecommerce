@@ -64,7 +64,7 @@ function ProductRight() {
             </Stack>
             <Stack gap={1} py={2}>
                 <TypographyText text={'Tags'} fontSize={'14'} fontWeight={'600'} />
-                <Autocomplete fullWidth
+                <Autocomplete
                     multiple
                     id="checkboxes-tags-demo"
                     options={top100Films}
@@ -81,9 +81,9 @@ function ProductRight() {
                             {option.title}
                         </li>
                     )}
-                    style={{ width: 500 }}
+                    style={{}}
                     renderInput={(params) => (
-                        <TextField {...params} placeholder="Add tags..." />
+                        <TextField   {...params} placeholder="Add tags..." />
                     )}
                 />
             </Stack>

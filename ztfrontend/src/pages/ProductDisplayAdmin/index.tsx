@@ -8,7 +8,7 @@ import CardsForm from './CardsForm'
 function ProductDisplayAdmin() {
     const [table, setTable] = useState<boolean>(false)
     return (
-        <Stack p={4} gap={2} sx={{ backgroundColor: 'rgb(246, 248, 255)' }} >
+        <Stack p={4} gap={2} sx={{  }} >
             <ProductHeader setTable={setTable} />
             {table ? <TableForm /> : <CardsForm />}
 

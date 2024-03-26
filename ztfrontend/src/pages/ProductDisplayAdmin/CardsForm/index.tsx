@@ -5,7 +5,7 @@ import ProductCard from '../../../components/ProductCard'
 function CardsForm() {
     return (
         <Stack gap={3}>
-            <Box display={'flex'} flexWrap={'wrap'} justifyContent={'space-between'} gap={2}>
+            <Box display={'flex'} flexWrap={'wrap'} justifyContent={'flex-start'} gap={2}>
                 <ProductCard />
                 <ProductCard />
                 <ProductCard />
