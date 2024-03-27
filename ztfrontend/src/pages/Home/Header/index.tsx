@@ -8,19 +8,8 @@ import Header3 from '../../../assets/header3.png'
 
 
 function Header() {
-
-  var items = [
-    {
-      name: "Random Name #1",
-      description: "Probably the most random thing you have ever seen!"
-    },
-    {
-      name: "Random Name #2",
-      description: "Hello World!"
-    }
-  ]
   return (
-    <Carousel
+    <Carousel navButtonsAlwaysInvisible={true}
       next={(next, active) => console.log(`we left ${active}, and are now at ${next}`)}
       prev={(prev, active) => console.log(`we left ${active}, and are now at ${prev}`)}
     >
