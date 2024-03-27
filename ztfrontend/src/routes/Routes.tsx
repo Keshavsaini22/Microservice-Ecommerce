@@ -11,6 +11,7 @@ import ProductAdd from '../pages/ProductAdd';
 import ProductDisplayAdmin from '../pages/ProductDisplayAdmin';
 import OrderList from '../pages/OrderList';
 import OrderDetails from '../pages/OrderDetails';
+import DeliveryOrder from '../pages/DeliveryOrder';
 
 // const Loader = (Component) => (props) =>
 // (
@@ -69,7 +70,11 @@ const routes: RouteObject[] = [
             {
                 path: 'orderdetails',
                 element: <OrderDetails />
-            }
+            },
+            {
+                path: 'delivery',
+                element: <DeliveryOrder />
+            },
         ]
     },
 ]

@@ -116,7 +116,8 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                     >
                         {headCell.label}
                     </TableCell>
-                ))}<TableCell align={'left'}
+                ))}
+                <TableCell align={'left'}
                     sx={{ fontWeight: '600' }}>More Info</TableCell>
             </TableRow>
         </TableHead>

@@ -29,7 +29,7 @@ function OrderShip() {
             </Box>
             <Stack direction={'row'} gap={2}>
                 <PaymentInfoCard />
-                <Note/>
+                <Note />
             </Stack>
         </Stack>
     )
