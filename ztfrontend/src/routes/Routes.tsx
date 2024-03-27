@@ -12,6 +12,7 @@ import ProductDisplayAdmin from '../pages/ProductDisplayAdmin';
 import OrderList from '../pages/OrderList';
 import OrderDetails from '../pages/OrderDetails';
 import DeliveryOrder from '../pages/DeliveryOrder';
+import Home from '../pages/Home';
 
 // const Loader = (Component) => (props) =>
 // (
@@ -45,11 +46,15 @@ const routes: RouteObject[] = [
         children: [
             {
                 path: '',
-                element: <Navigate to="settings" replace />
+                element: <Navigate to="home" replace />
             },
             {
                 path: 'dashboard',
                 element: <Dashboard />
+            },
+            {
+                path: 'home',
+                element: <Home />
             },
             {
                 path: 'allproducts',
