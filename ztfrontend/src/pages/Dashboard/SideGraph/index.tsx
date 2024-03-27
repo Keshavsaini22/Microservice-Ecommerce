@@ -5,17 +5,17 @@ import { LineChart } from '@mui/x-charts/LineChart';
 
 function SideGraph() {
     return (
-        <Stack p={2} sx={{ backgroundColor: 'white', borderRadius: '10px' }} gap={1}>
-            <Stack direction={'row'} justifyContent={'space-between'}>
+        <Stack width={'60%'} p={2} sx={{ backgroundColor: 'white', borderRadius: '10px' }} gap={1}>
+            <Stack direction={'row'} gap={1} justifyContent={'space-between'}>
                 <Box fontWeight={'600'}>Sale Graph</Box>
                 <Stack direction={'row'} gap={1}>
-                    <CustomButton onclick={() => { }} sxprops={{ sx: { width: '150px', height: '35px' } }} variant="outlined" text="Weekly" />
-                    <CustomButton onclick={() => { }} sxprops={{ sx: { width: '150px', height: '35px' } }} variant="contained" text="Monthly" />
-                    <CustomButton onclick={() => { }} sxprops={{ sx: { width: '150px', height: '35px' } }} variant="outlined" text="Yearly" />
+                    <CustomButton onclick={() => { }} sxprops={{ sx: { width: '120px', height: '35px' } }} variant="outlined" text="Weekly" />
+                    <CustomButton onclick={() => { }} sxprops={{ sx: { width: '120px', height: '35px' } }} variant="contained" text="Monthly" />
+                    <CustomButton onclick={() => { }} sxprops={{ sx: { width: '120px', height: '35px' } }} variant="outlined" text="Yearly" />
                 </Stack>
             </Stack>
             <Divider />
-            {/* <LineChart
+            <LineChart
                 xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
                 series={[
                     {
@@ -23,9 +23,9 @@ function SideGraph() {
                         area: true,
                     },
                 ]}
-                width={500}
+                sx={{ width: '100%' }}
                 height={300}
-            /> */}
+            />
         </Stack>
     )
 }
