@@ -21,7 +21,7 @@ function Navbar() {
     var todayDateString = dayName + ", " + date + "/" + Month + "/" + year;
     return (
         <Stack height={'90px'} px={1} gap={1} direction={'row'} alignItems={'center'} justifyContent={'space-around'} sx={{ backgroundColor: 'white' }}>
-            <Box sx={{ backgroundColor: 'rgb(247, 247, 247)', maxWidth: '400px', width: '400px', height: "44px", borderRadius: '12px' }}>
+            <Box sx={{ backgroundColor: 'rgb(247, 247, 247)', maxWidth: '400px', width: '40%', height: "44px", borderRadius: '12px' }}>
                 <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
                     <SearchIcon />
                 </IconButton>
@@ -31,7 +31,7 @@ function Navbar() {
                     inputProps={{ 'aria-label': 'search....' }}
                 />
             </Box>
-            <Stack direction={'row'} maxWidth={'250px'} justifyContent={'space-between'} gap={3}>
+            <Stack direction={'row'} maxWidth={'20%'} justifyContent={'space-between'} gap={3}>
                 <Stack direction={'row'} alignItems={'center'} gap={1}>
                     <CalendarMonthOutlinedIcon sx={{ fontSize: '25px' }} />
                     <TypographyText text={todayDateString} fontSize={'15'} fontWeight={'600'} />
@@ -46,7 +46,7 @@ function Navbar() {
                     </Badge>
                 </IconButton>
             </Stack>
-            <Stack direction={'row'} alignItems={'center'} gap={1}>
+            <Stack direction={'row'}  alignItems={'center'} gap={1}>
                 <Stack>
                     <Box sx={{ textAlign: 'right', fontSize: '16px' }}> Keshav Saini</Box>
                     <Box sx={{ textAlign: 'right', fontSize: '14px' }}>Developer</Box>

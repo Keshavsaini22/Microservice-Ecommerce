@@ -6,7 +6,7 @@ import CategoryWiseProduct from './CategoryWiseProduct'
 
 function Home() {
     return (
-        <Stack p={2} gap={4} sx={{}} >
+        <Stack width={'100%'} p={2} gap={4} >
             <Header />
             <Categories />
             <CategoryWiseProduct />

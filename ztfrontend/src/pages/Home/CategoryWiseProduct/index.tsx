@@ -1,77 +1,52 @@
 import { Avatar, Box, Button, IconButton, Stack } from '@mui/material'
-import React from 'react'
+import React, { useRef } from 'react'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import AddIcon from '@mui/icons-material/Add';
-import AddButton from '../../../assets/AddButton.png'
-import Carousel from 'react-material-ui-carousel';
+import HomeProductCard from '../../../components/HomeProductCard';
+import "react-multi-carousel/lib/styles.css";
+import './CategoryWiseProduct.css'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 function CategoryWiseProduct() {
+    const scroll = useRef<HTMLDivElement>(null)
+    const handleScroll = (offset: number) => {
+        if (scroll.current?.scrollLeft !== (null || undefined))
+            scroll.current.scrollLeft += offset
+    }
+
     return (
-        <Stack gap={2}>
-            <Stack direction={'row'} gap={4} alignItems={'center'}>
+        <Stack gap={2} width={'100%'} sx={{ backgroundColor: 'white', borderRadius: '10px', overflow: 'hidden', boxSizing: 'border-box' }}>
+            <Stack m={2} direction={'row'} gap={4} alignItems={'center'}>
                 <Stack direction={'row'} gap={1} alignItems={'center'}>
                     <Avatar sx={{ width: '50px', height: '50px' }} alt="Travis Howard" src="" />
                     <Box fontWeight={'600'} fontSize={'25px'}>Mobile</Box>
                 </Stack>
                 <IconButton ><NavigateNextIcon sx={{ fontSize: '30px' }} /></IconButton>
             </Stack>
-
-            <Carousel  indicators={false}  autoPlay={false} 
-                next={(next, active) => console.log(`we left ${active}, and are now at ${next}`)}
-                prev={(prev, active) => console.log(`we left ${active}, and are now at ${prev}`)}
-            >
-                <Stack gap={0.3} width={'180px'} >
-                    <Box className='image' sx={{ height: '150px', width: '150px', position: 'relative' }}>
-                        <img src='https://clipart-library.com/images_k/smartphone-png-transparent/smartphone-png-transparent-4.jpg' alt="" />
-                        <Box component={'button'} sx={{ padding: '0px', border: 'none', background: 'none', position: 'absolute', right: '-15px', top: '-20px', '&:hover': { cursor: 'pointer' } }}><img src={AddButton}></img></Box>
-                    </Box>
-                    <Box sx={{ fontSize: '15px', fontWeight: '700' }}>Rs 12000</Box>
-                    <Box>Simple Nokia 122 This is name id product</Box>
-                    <Box sx={{ color: 'green', fontWeight: '600', fontSize: '14px' }}>70% off</Box>
+            <Stack gap={1} direction={'row'} width={'100%'} sx={{ overflow: 'hidden' }} alignItems={'center'} >
+                <IconButton sx={{ height: '40px' }} onClick={() => handleScroll(-100)} ><ArrowBackIosIcon /></IconButton>
+                <Stack gap={2} ref={scroll} direction={'row'} className='slider'>
+                    <HomeProductCard image={''} price={'Rs 12001   '} name={'Nokia 77t767'} />
+                    <HomeProductCard image={''} price={'Rs 12002   '} name={'Nokia 77t767'} />
+                    <HomeProductCard image={''} price={'Rs 12003   '} name={'Nokia 77t767'} />
+                    <HomeProductCard image={''} price={'Rs 12004   '} name={'Nokia 77t767'} />
+                    <HomeProductCard image={''} price={'Rs 12005   '} name={'Nokia 77t767'} />
+                    <HomeProductCard image={''} price={'Rs 12006   '} name={'Nokia 77t767'} />
+                    <HomeProductCard image={''} price={'Rs 12007   '} name={'Nokia 77t767'} />
+                    <HomeProductCard image={''} price={'Rs 12008   '} name={'Nokia 77t767'} />
+                    <HomeProductCard image={''} price={'Rs 12009   '} name={'Nokia 77t767'} />
+                    <HomeProductCard image={''} price={'Rs 12009   '} name={'Nokia 77t767'} />
+                    <HomeProductCard image={''} price={'Rs 12007   '} name={'Nokia 77t767'} />
+                    <HomeProductCard image={''} price={'Rs 12006   '} name={'Nokia 77t767'} />
+                    <HomeProductCard image={''} price={'Rs 12005   '} name={'Nokia 77t767'} />
+                    <HomeProductCard image={''} price={'Rs 12004   '} name={'Nokia 77t767'} />
                 </Stack>
-
-                <Stack gap={0.3} width={'180px'} >
-                    <Box className='image' sx={{ height: '150px', width: '150px', position: 'relative' }}>
-                        <img src='https://clipart-library.com/images_k/smartphone-png-transparent/smartphone-png-transparent-4.jpg' alt="" />
-                        <Box component={'button'} sx={{ padding: '0px', border: 'none', background: 'none', position: 'absolute', right: '-15px', top: '-20px', '&:hover': { cursor: 'pointer' } }}><img src={AddButton}></img></Box>
-                    </Box>
-                    <Box sx={{ fontSize: '15px', fontWeight: '700' }}>Rs 120tr00</Box>
-                    <Box>Simple Nokia 122 This is name id product</Box>
-                    <Box sx={{ color: 'green', fontWeight: '600', fontSize: '14px' }}>70% off</Box>
-                </Stack>
+                <IconButton sx={{ height: '40px' }} onClick={() => handleScroll(100)}><ArrowForwardIosIcon /></IconButton>
+            </Stack>
 
 
-                <Stack gap={0.3} width={'180px'} >
-                    <Box className='image' sx={{ height: '150px', width: '150px', position: 'relative' }}>
-                        <img src='https://clipart-library.com/images_k/smartphone-png-transparent/smartphone-png-transparent-4.jpg' alt="" />
-                        <Box component={'button'} sx={{ padding: '0px', border: 'none', background: 'none', position: 'absolute', right: '-15px', top: '-20px', '&:hover': { cursor: 'pointer' } }}><img src={AddButton}></img></Box>
-                    </Box>
-                    <Box sx={{ fontSize: '15px', fontWeight: '700' }}>Rs 120rett00</Box>
-                    <Box>Simple Nokia 122 This is name id product</Box>
-                    <Box sx={{ color: 'green', fontWeight: '600', fontSize: '14px' }}>70% off</Box>
-                </Stack>
 
 
-                <Stack gap={0.3} width={'180px'} >
-                    <Box className='image' sx={{ height: '150px', width: '150px', position: 'relative' }}>
-                        <img src='https://clipart-library.com/images_k/smartphone-png-transparent/smartphone-png-transparent-4.jpg' alt="" />
-                        <Box component={'button'} sx={{ padding: '0px', border: 'none', background: 'none', position: 'absolute', right: '-15px', top: '-20px', '&:hover': { cursor: 'pointer' } }}><img src={AddButton}></img></Box>
-                    </Box>
-                    <Box sx={{ fontSize: '15px', fontWeight: '700' }}>Rs 120tttt00</Box>
-                    <Box>Simple Nokia 122 This is name id product</Box>
-                    <Box sx={{ color: 'green', fontWeight: '600', fontSize: '14px' }}>70% off</Box>
-                </Stack>
 
-
-                <Stack gap={0.3} width={'180px'} >
-                    <Box className='image' sx={{ height: '150px', width: '150px', position: 'relative' }}>
-                        <img src='https://clipart-library.com/images_k/smartphone-png-transparent/smartphone-png-transparent-4.jpg' alt="" />
-                        <Box component={'button'} sx={{ padding: '0px', border: 'none', background: 'none', position: 'absolute', right: '-15px', top: '-20px', '&:hover': { cursor: 'pointer' } }}><img src={AddButton}></img></Box>
-                    </Box>
-                    <Box sx={{ fontSize: '15px', fontWeight: '700' }}>Rs 1200tttt0</Box>
-                    <Box>Simple Nokia 122 This is name id product</Box>
-                    <Box sx={{ color: 'green', fontWeight: '600', fontSize: '14px' }}>70% off</Box>
-                </Stack>
-            </Carousel >
         </Stack>
     )
 }

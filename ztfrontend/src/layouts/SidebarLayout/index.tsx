@@ -6,13 +6,13 @@ import { Outlet } from 'react-router-dom';
 
 function SidebarLayout() {
     return (
-        <Stack direction={'row'} minHeight={'100vh'}>
+        <Box sx={{display:'grid',width:"100vw",height:"100vh",gridTemplateColumns:'20% 80%'}}>
             <Sidebar />
             <Stack width={'100%'} sx={{ backgroundColor: 'rgb(246, 248, 255)' }}>
                 <Navbar />
                 <Outlet />
             </Stack>
-        </Stack>
+        </Box>
     )
 }
 

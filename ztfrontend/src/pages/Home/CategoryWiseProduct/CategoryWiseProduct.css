@@ -5,3 +5,11 @@
         border-radius: 10px;
     }
 }
+
+.slider::-webkit-scrollbar {
+    display: none;
+}
+
+.slider {
+    overflow-x: auto !important;
+}
