@@ -9,7 +9,7 @@ interface props {
 }
 function HomeProductCard(props: props) {
     return (
-        <Stack gap={0.3} width={'180px'} height={'270px'} justifyContent={'center'}>
+        <Stack gap={0.3} width={'180px'} height={'270px'} justifyContent={'center'} >
             <Box className='image' sx={{ height: '150px', width: '150px', position: 'relative' }}>
                 <img src='https://clipart-library.com/images_k/smartphone-png-transparent/smartphone-png-transparent-4.jpg' alt="" />
                 <Box component={'button'} sx={{ padding: '0px', border: 'none', background: 'none', position: 'absolute', right: '-15px', top: '-20px', '&:hover': { cursor: 'pointer' } }}><img src={AddButton}></img></Box>

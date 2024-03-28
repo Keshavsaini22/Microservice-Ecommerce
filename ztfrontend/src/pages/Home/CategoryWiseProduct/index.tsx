@@ -24,7 +24,7 @@ function CategoryWiseProduct() {
             </Stack>
             <Stack gap={1} direction={'row'} width={'100%'} sx={{ overflow: 'hidden' }} alignItems={'center'} >
                 <IconButton sx={{ height: '40px' }} onClick={() => handleScroll(-100)} ><ArrowBackIosIcon /></IconButton>
-                <Stack gap={2} ref={scroll} direction={'row'} className='slider'>
+                <Stack gap={3} ref={scroll} direction={'row'} className='slider'>
                     <HomeProductCard image={''} price={'Rs 12001   '} name={'Nokia 77t767'} />
                     <HomeProductCard image={''} price={'Rs 12002   '} name={'Nokia 77t767'} />
                     <HomeProductCard image={''} price={'Rs 12003   '} name={'Nokia 77t767'} />
