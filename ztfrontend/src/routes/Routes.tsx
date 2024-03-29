@@ -13,6 +13,7 @@ import OrderList from '../pages/OrderList';
 import OrderDetails from '../pages/OrderDetails';
 import DeliveryOrder from '../pages/DeliveryOrder';
 import Home from '../pages/Home';
+import NotFound from '../pages/NotFound';
 
 // const Loader = (Component) => (props) =>
 // (
@@ -20,18 +21,22 @@ import Home from '../pages/Home';
 //         <Component {...props} />
 //     </Suspense>
 // );
+interface ProtectedProps {
+    children: React.ReactNode
+}
+
+const PrivateRoute = (props: ProtectedProps) => {
+    const isAuth = localStorage.getItem("token");
+    return isAuth === null ? <Navigate to="/" /> : <>{props.children}</>;
+};
 
 const routes: RouteObject[] = [
     {
-        path: '/',
+        path: '',
         element: <BaseLayout />,
         children: [
             {
-                path: '',
-                element: <Navigate to="login" replace />
-            },
-            {
-                path: '/login',
+                path: '/',
                 element: <Login />
             },
             {
@@ -41,8 +46,8 @@ const routes: RouteObject[] = [
         ]
     },
     {
-        path: '/home',
-        element: <SidebarLayout />,
+        path: '/',
+        element: <PrivateRoute><SidebarLayout /></PrivateRoute>,
         children: [
             {
                 path: '',
@@ -81,6 +86,11 @@ const routes: RouteObject[] = [
                 element: <DeliveryOrder />
             },
         ]
+    },
+    {
+        path: '*',
+        element: <NotFound />,
+
     },
 ]
 

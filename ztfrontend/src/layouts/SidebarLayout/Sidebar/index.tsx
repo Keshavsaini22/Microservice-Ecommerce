@@ -3,7 +3,8 @@ import Stack from '@mui/material/Stack';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import TypographyText from '../../../components/TypographyText';
 import IconText from '../../../components/IconText';
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined'; import ExpandLess from '@mui/icons-material/ExpandLess';
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
+import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import ContentPasteOutlinedIcon from '@mui/icons-material/ContentPasteOutlined';
 import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
@@ -14,12 +15,17 @@ import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
 import EventAvailableOutlinedIcon from '@mui/icons-material/EventAvailableOutlined';
 import HighlightOffOutlinedIcon from '@mui/icons-material/HighlightOffOutlined';
 import { Collapse, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../../app/hooks';
+import { logoutUser } from '../../../featues/Auth/auth.action';
 function Sidebar() {
     const [open, setOpen] = React.useState(true);
 
     const handleClick = () => {
         setOpen(!open);
     };
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     return (
         <Stack width={'100%'} sx={{ borderRight: ' 2px solid rgb(236, 237, 239)' }} gap={6}>
             <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} gap={1} mt={6}>
@@ -84,12 +90,19 @@ function Sidebar() {
                         </ListItemIcon>
                         <ListItemText primary="Settings" />
                     </ListItemButton>
-                    <ListItemButton>
+
+                    <ListItemButton onClick={async () => {
+                        console.log("handlelogout1")
+                        const res = await dispatch(logoutUser())
+                        if (res)
+                            navigate('/')
+                    }}>
                         <ListItemIcon>
                             <LogoutOutlinedIcon />
                         </ListItemIcon>
                         <ListItemText primary="Logout" />
                     </ListItemButton>
+
                 </List>
             </Stack>
         </Stack>

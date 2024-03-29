@@ -28,7 +28,7 @@ export const signUpUser = createAsyncThunk(signinType, async (data: signup, { re
     }
 })
 
-export const loginUser = createAsyncThunk(loginType, async (data:login, { rejectWithValue }) => {
+export const loginUser = createAsyncThunk(loginType, async (data: login, { rejectWithValue }) => {
     try {
         //console.log("signInUser", data)
         const res = await axios.post(`http://localhost:8081/login`, data)
@@ -47,13 +47,11 @@ export const loginUser = createAsyncThunk(loginType, async (data:login, { reject
 
 export const logoutUser = createAsyncThunk(logoutType, async () => {
     try {
-        //console.log("logout action")
         localStorage.removeItem('logged');
         localStorage.removeItem('token');
         localStorage.removeItem('user')
         localStorage.removeItem('userid')
     } catch (error: any) {
-        //console.log("error: ", error.response.data.message)
         return error.message
     }
 })
