@@ -9,6 +9,20 @@ function SignUp() {
     const [password, setPassword] = React.useState<string>()
     const [email, setemail] = React.useState<string>()
     const [role, setRole] = React.useState<string>('User')
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const data = {
+            email: email,
+            password: password,
+            name: name,
+            role: role
+        }
+        console.log('data: ', data);
+        dispatch(signUpUser(data));
+        // setName(null)
+        // setemail(null)
+        // setPassword(null)
+    };
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -27,7 +41,7 @@ function SignUp() {
                     Sign up
                 </Typography>
                 <Box component="form"
-                    // onSubmit={handleSubmit} 
+                    onSubmit={handleSubmit}
                     sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} >
