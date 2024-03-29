@@ -14,7 +14,14 @@ const initialState = {
 export const authSlice = createSlice({
     name: "auth",
     initialState,
-    reducers: {}
+    reducers: {
+        toggleSuccess: (state) => {
+            state.success = false
+        },
+        toggleerror: (state) => {
+            state.error = null
+        }
+    }
     ,
     extraReducers: (builder) => {
         builder.addCase(signUpUser.pending, (state) => {
@@ -64,3 +71,6 @@ export const authSlice = createSlice({
             })
     }
 })
+
+export const { toggleSuccess, toggleerror } = authSlice.actions
+export default authSlice.reducer

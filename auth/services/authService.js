@@ -7,6 +7,7 @@ const { v4: uuidv4 } = require('uuid');
 const produce = new Producer()
 exports.signUp = async (payload) => {
     const { email, password, role, name } = payload.body;
+    // console.log('email, password, role, name: ', email, password, role, name);
     if (!email)
         throw new CustomError("User email not found", 401);
     if (!password)

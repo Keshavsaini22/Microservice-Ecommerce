@@ -1,15 +1,21 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useEffect } from 'react'
 import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField, Typography } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { signUpUser } from '../../featues/Auth/auth.action';
+import { toggleSuccess, toggleerror } from '../../featues/Auth/auth.slice';
 
 function SignUp() {
+    const error = useAppSelector((state) => state?.auth?.error)
+    const success = useAppSelector((state) => state?.auth?.success)
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const [name, setName] = React.useState<string>()
-    const [password, setPassword] = React.useState<string>()
-    const [email, setemail] = React.useState<string>()
+    const [name, setName] = React.useState<string>('')
+    const [password, setPassword] = React.useState<string>('')
+    const [email, setemail] = React.useState<string>('')
     const [role, setRole] = React.useState<string>('User')
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = {
             email: email,
@@ -17,12 +23,26 @@ function SignUp() {
             name: name,
             role: role
         }
-        console.log('data: ', data);
+        // console.log('data: ', data);
         dispatch(signUpUser(data));
-        // setName(null)
-        // setemail(null)
-        // setPassword(null)
+        setName('')
+        setemail('')
+        setPassword('')
     };
+    React.useEffect(() => {
+        if (error) {
+            alert(`Error: ${error}`)
+            dispatch(toggleerror())
+        }
+    }, [error])
+
+    useEffect(() => {
+        if (success) {
+            alert('SignUp success')
+            dispatch(toggleSuccess())
+            navigate('/');
+        }
+    }, [success])
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -41,7 +61,7 @@ function SignUp() {
                     Sign up
                 </Typography>
                 <Box component="form"
-                    onSubmit={handleSubmit}
+                    onSubmit={(event) => { handleSubmit(event) }}
                     sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} >

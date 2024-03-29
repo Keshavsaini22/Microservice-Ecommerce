@@ -2,8 +2,17 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 import { loginType, logoutType, signinType } from "./auth.type";
 
-
-export const signUpUser = createAsyncThunk(signinType, async (data, { rejectWithValue }) => {
+interface signup {
+    email: string
+    password: string
+    name: string
+    role: string
+}
+interface login {
+    email: string
+    password: string
+}
+export const signUpUser = createAsyncThunk(signinType, async (data: signup, { rejectWithValue }) => {
 
     try {
         console.log("signInUser", data)
@@ -19,7 +28,7 @@ export const signUpUser = createAsyncThunk(signinType, async (data, { rejectWith
     }
 })
 
-export const loginUser = createAsyncThunk(loginType, async (data, { rejectWithValue }) => {
+export const loginUser = createAsyncThunk(loginType, async (data:login, { rejectWithValue }) => {
     try {
         //console.log("signInUser", data)
         const res = await axios.post(`http://localhost:8081/login`, data)

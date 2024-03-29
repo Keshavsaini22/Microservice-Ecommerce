@@ -1,14 +1,40 @@
 import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { loginUser } from '../../featues/Auth/auth.action';
+import { toggleerror } from '../../featues/Auth/auth.slice';
 
 function Login() {
-  const navigate=useNavigate()
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
-  return (
-    <Container component="main" maxWidth="xs">
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const logged = useAppSelector((state) => state.auth.logged)
+    const error = useAppSelector((state) => state.auth.error)
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const data = {
+            email: email,
+            password: password
+        }
+        console.log('data: ', data);
+        dispatch(loginUser(data));
+    };
+    useEffect(() => {
+        if (error) {
+            alert(`Error: ${error}`)
+            dispatch(toggleerror())
+        }
+    }, [error])
+    useEffect(() => {
+        if (logged) {  //due to this line main khabi bhi login vali state me nhi ja skda without logout
+            navigate('/home')
+        }
+    }, [logged])
+    return (
+        <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
                 sx={{
@@ -25,8 +51,8 @@ function Login() {
                     Sign in
                 </Typography>
                 <Box component="form"
-                //  onSubmit={handleSubmit}
-                  sx={{ mt: 1 }}>
+                    onSubmit={(e) => { handleSubmit(e) }}
+                    sx={{ mt: 1 }}>
                     <TextField
                         type='email'
                         margin="normal"
@@ -81,7 +107,7 @@ function Login() {
                 </Grid>
             </Box>
         </Container>
-  )
+    )
 }
 
 export default Login
