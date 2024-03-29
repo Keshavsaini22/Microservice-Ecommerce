@@ -32,7 +32,7 @@ class Consumer {
                     channel.ack(msg);
                 } catch (error) {
                     console.log(error.message);
-                    channel.nack(msg, false, true);
+                    channel.nack(msg, false, false);
                 }
             } else {
                 console.log(`Messages ignore with id: ${msg?.properties?.messageId}`);
